@@ -7,40 +7,45 @@
         <img
             src="/hero-massage.jpg"
             alt="NR Balance — Masaje y psicología"
-            class="hero-bg w-full h-full object-cover object-center"
+            class="hero-bg w-full h-full object-cover md:object-center"
+            style="object-position: 75% 50%;"
         />
-        <div class="absolute inset-0 bg-base/15"></div>
+        <div class="absolute inset-0 bg-base/20 md:bg-base/15"></div>
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-base via-transparent to-base/50 md:hidden opacity-90"
+        >
+        </div>
     </div>
 
     <div
-        class="relative z-10 flex flex-col items-center justify-center h-full text-center px-6"
+        class="relative z-10 flex flex-col items-center justify-end md:justify-center h-full text-center px-6 pb-[15vh] md:pb-0"
     >
         <h1
-            class="hero-title font-serif leading-[1.1] tracking-[0.8px] text-main font-normal lowercase flex flex-row items-center gap-4 md:gap-8"
+            class="hero-title font-serif leading-[0.9] md:leading-[1.1] tracking-[0.8px] text-main font-normal lowercase flex flex-col md:flex-row items-center gap-0 md:gap-8"
         >
             <span
-                class="hero-word text-[48px] md:text-[80px] lg:text-[110px] xl:text-[130px]"
+                class="hero-word text-[70px] md:text-[80px] lg:text-[110px] xl:text-[130px]"
                 >cuerpo</span
             >
             <span
-                class="hero-amp text-[32px] md:text-[48px] lg:text-[60px] xl:text-[68px] text-peach"
+                class="hero-amp text-[40px] md:text-[48px] lg:text-[60px] xl:text-[68px] text-peach"
                 >&</span
             >
             <span
-                class="hero-word text-[48px] md:text-[80px] lg:text-[110px] xl:text-[130px]"
+                class="hero-word text-[70px] md:text-[80px] lg:text-[110px] xl:text-[130px]"
                 >mente</span
             >
         </h1>
 
         <p
-            class="hero-subtitle font-sans text-[12px] tracking-[0.3px] text-peach mt-6 md:mt-8 font-normal"
+            class="hero-subtitle font-sans text-[12px] uppercase tracking-[0.2em] text-main/60 mt-8 md:mt-8 font-bold"
         >
             Conecta contigo mismo
         </p>
 
         <a
             href="#services"
-            class="hero-cta pill-btn pill-btn--primary mt-10 md:mt-14 px-[30px] py-[15px]"
+            class="hero-cta pill-btn pill-btn--primary mt-8 md:mt-14 px-[30px] py-[15px]"
         >
             <span class="text-[14px]">✳︎</span>
             <span class="text-[14px] font-bold"

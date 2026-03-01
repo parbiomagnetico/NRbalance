@@ -1,0 +1,144 @@
+---
+// Community.astro — Horizontal Testimonials Slider
+const testimonials = [
+    {
+        quote: "Nunca había experimentado un masaje tan conectado con mis emociones. Natalia sabe exactamente dónde guardas la tensión.",
+        name: "Elena Gómez",
+        service: "Masaje de Tejido Profundo",
+    },
+    {
+        quote: "Llegué con ansiedad crónica y la terapia somática me ha devuelto el control de mi respiración. Es un verdadero santuario.",
+        name: "Javier R.",
+        service: "Liberación Somática & Psicoterapia",
+    },
+    {
+        quote: "Un tacto increíblemente sanador y respetuoso. Cada sesión clínica es un paso firme hacia mi bienestar integral. Recomendado al 200%.",
+        name: "Marta Vidal",
+        service: "Psicoterapia Individual",
+    },
+    {
+        quote: "No es un masaje cualquiera. Es una experiencia de reseteo corporal profundo. Sales flotando y con la mente completamente en blanco.",
+        name: "Andrés Silva",
+        service: "Terapia Manual Avanzada",
+    },
+    {
+        quote: "La delicadeza y empatía de Natalia te envuelven desde que entras. Ha transformado mi forma de afrontar la tensión acumulada.",
+        name: "Clara Jiménez",
+        service: "Acompañamiento Integrativo",
+    },
+];
+---
+
+<section
+    id="community-pin"
+    class="bg-peach/10 relative h-[100svh] w-full overflow-hidden flex flex-col justify-center"
+>
+    <!-- Title floating above -->
+    <div
+        class="absolute top-[15vh] md:top-[20vh] left-8 md:left-24 z-20 pointer-events-none"
+    >
+        <h2
+            class="font-serif text-[40px] md:text-[70px] leading-[1.1] tracking-tighter text-main"
+        >
+            Lo que dicen de<br /><span class="italic text-base/80"
+                >nosotros.</span
+            >
+        </h2>
+    </div>
+
+    <!-- Background decorative element -->
+    <div
+        class="absolute top-0 right-0 w-[50vw] h-[100vh] bg-secondary/80 rounded-l-full blur-3xl opacity-30 pointer-events-none -translate-x-1/2"
+    >
+    </div>
+
+    <!-- The Track -->
+    <div
+        id="community-track"
+        class="flex items-center pt-[15vh] pb-10 pl-8 md:pl-24 w-[500vw] md:w-[350vw] lg:w-[250vw]"
+    >
+        {
+            testimonials.map((t, index) => (
+                <div class="testimonial-panel w-[85vw] md:w-[60vw] lg:w-[40vw] shrink-0 pr-6 md:pr-12">
+                    <div class="bg-base border border-main/10 p-8 md:p-12 lg:p-16 h-full flex flex-col justify-between hover:border-peach/50 transition-colors duration-500 custom-cursor-hover">
+                        <div>
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                class="w-8 h-8 text-accent-luxury mb-8 opacity-50"
+                            >
+                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                            </svg>
+                            <p class="font-serif text-[20px] md:text-[28px] leading-[1.5] text-main tracking-tight mb-12">
+                                "{t.quote}"
+                            </p>
+                        </div>
+
+                        <div class="flex flex-col gap-1 border-t border-main/10 pt-6">
+                            <span class="font-serif text-[18px] md:text-[20px] text-accent-luxury">
+                                — {t.name}
+                            </span>
+                            <span class="text-[12px] md:text-[14px] text-main/50 uppercase tracking-widest font-bold">
+                                {t.service}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            ))
+        }
+
+        <!-- Empty panel for padding at the end -->
+        <div class="w-[15vw] shrink-0"></div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const track = document.getElementById("community-track");
+        const panels = gsap.utils.toArray(".testimonial-panel");
+
+        if (track && panels.length > 0) {
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#community-pin",
+                    start: "top top",
+                    end: () => "+=" + track.offsetWidth,
+                    scrub: 1, // Smooth scrub
+                    pin: true,
+                    anticipatePin: 1,
+                },
+            });
+
+            tl.to(panels, {
+                xPercent: -100 * panels.length,
+                ease: "none",
+            });
+
+            // Add slight rotation/skew effect based on scroll velocity
+            // This is a premium Awwwards touch
+            ScrollTrigger.create({
+                trigger: "#community-pin",
+                start: "top top",
+                end: () => "+=" + track.offsetWidth,
+                onUpdate: (self) => {
+                    const velocity = Math.min(
+                        Math.max(self.getVelocity() / 500, -5),
+                        5,
+                    );
+                    gsap.to(".testimonial-panel > div", {
+                        skewX: velocity,
+                        rotateY: velocity * 2,
+                        ease: "power3.out",
+                        overwrite: "auto",
+                        duration: 0.8,
+                    });
+                },
+            });
+        }
+    });
+</script>

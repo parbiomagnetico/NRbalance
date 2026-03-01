@@ -1,0 +1,171 @@
+---
+// FAQ.astro — Clean accordion
+const faqs = [
+    {
+        question:
+            "¿Qué diferencia hay entre este enfoque y un masaje tradicional?",
+        answer: "A diferencia de un masaje convencional, nuestro enfoque de integración somática reconoce que el dolor muscular suele estar ligado a tensiones emocionales. Combinamos técnicas manuales con apoyo psicológico para tratar la raíz real del problema, consiguiendo resultados más profundos y duraderos.",
+    },
+    {
+        question: "¿Necesito hacer terapia psicológica para recibir un masaje?",
+        answer: "En absoluto. Puedes elegir el servicio que desees por separado. Tratamientos de masaje puramente relajantes, sesiones exclusivas de psicoterapia, o nuestra sesión estrella que integra ambos mundos. Nos adaptamos a tu necesidad actual.",
+    },
+    {
+        question: "¿Qué debo llevar a mi primera sesión?",
+        answer: "Solo pedimos que vengas con ropa cómoda y sin prisa. Toda la hidratación, toallas premium, y aceites esenciales de grado terapéutico están incluidos en tu cita. Te daremos un breve cuestionario a tu llegada para personalizar el trato.",
+    },
+    {
+        question: "¿Puedo reservar una sesión a domicilio?",
+        answer: "Sí, disponemos de un servicio premium a domicilio dentro del área metropolitana. Llevamos nuestra propia camilla profesional, aromaterapia y todo lo necesario para transformar tu casa en un santuario temporal de relajación.",
+    },
+];
+---
+
+<section id="faq" class="bg-base py-20 md:py-28">
+    <div class="section-container max-w-4xl">
+        <h2
+            class="faq-title-reveal font-serif text-[32px] md:text-[50px] leading-[1.2] tracking-tight text-main text-center mb-4"
+        >
+            Preguntas Frecuentes.
+        </h2>
+        <p class="text-[16px] text-main/60 text-center mb-16">
+            Todo lo que necesitas saber antes de tu primera sesión con nosotros.
+        </p>
+
+        <div class="faq-container flex flex-col gap-4">
+            {
+                faqs.map((faq, index) => (
+                    <div class="faq-item border border-main/10 rounded-2xl overflow-hidden bg-white/50 transition-colors hover:bg-white cursor-pointer">
+                        <button class="faq-button w-full flex items-center justify-between p-6 md:p-8 text-left outline-none">
+                            <span class="font-serif text-[18px] md:text-[22px] tracking-tight text-main pr-8">
+                                {faq.question}
+                            </span>
+                            <div class="faq-icon-wrapper shrink-0 w-8 h-8 rounded-full border border-main/20 flex items-center justify-center text-main transition-transform">
+                                <span class="text-[20px] leading-none mb-1">
+                                    +
+                                </span>
+                            </div>
+                        </button>
+                        <div class="faq-content h-0 overflow-hidden px-6 md:px-8">
+                            <p class="text-[16px] text-main/70 leading-[1.7] pb-6 md:pb-8">
+                                {faq.answer}
+                            </p>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Advanced Title Reveal
+        gsap.from(".faq-title-reveal", {
+            y: 100,
+            opacity: 0,
+            clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
+            duration: 1.2,
+            ease: "expo.out",
+            scrollTrigger: {
+                trigger: "#faq",
+                start: "top 80%",
+            },
+            onComplete: function () {
+                gsap.set(this.targets(), { clearProps: "clipPath" });
+            },
+        });
+
+        // Animation on scroll for FAQ items
+        gsap.from(".faq-item", {
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: { trigger: ".faq-container", start: "top 80%" },
+        });
+
+        // Accordion logic
+        const items = document.querySelectorAll(".faq-item");
+
+        items.forEach((item) => {
+            const button = item.querySelector(".faq-button");
+            const content = item.querySelector(".faq-content") as HTMLElement;
+            const icon = item.querySelector(".faq-icon-wrapper");
+            const textIcon = icon?.querySelector("span");
+            let isOpen = false;
+
+            if (!button || !content || !icon || !textIcon) return;
+
+            button.addEventListener("click", () => {
+                isOpen = !isOpen;
+
+                // Close all others
+                items.forEach((otherItem) => {
+                    if (otherItem !== item) {
+                        const otherContent = otherItem.querySelector(
+                            ".faq-content",
+                        ) as HTMLElement;
+                        const otherIcon =
+                            otherItem.querySelector(".faq-icon-wrapper");
+                        const otherTextIcon = otherIcon?.querySelector("span");
+
+                        if (otherContent && otherIcon && otherTextIcon) {
+                            gsap.to(otherContent, {
+                                height: 0,
+                                duration: 0.4,
+                                ease: "power2.out",
+                            });
+                            gsap.to(otherIcon, {
+                                backgroundColor: "transparent",
+                                color: "var(--color-main)",
+                                duration: 0.3,
+                            });
+                            otherTextIcon.textContent = "+";
+                            otherItem.classList.remove("is-open"); // Using class to track state
+                        }
+                    }
+                });
+
+                if (isOpen) {
+                    // Open this
+                    const contentHeight = content.scrollHeight;
+                    gsap.to(content, {
+                        height: contentHeight,
+                        duration: 0.4,
+                        ease: "power2.out",
+                    });
+                    gsap.to(icon, {
+                        backgroundColor: "var(--color-accent-luxury)",
+                        color: "#fff",
+                        borderColor: "var(--color-accent-luxury)",
+                        duration: 0.3,
+                    });
+                    textIcon.textContent = "−"; // minus sign
+                    item.classList.add("is-open");
+                } else {
+                    // Close this
+                    gsap.to(content, {
+                        height: 0,
+                        duration: 0.4,
+                        ease: "power2.out",
+                    });
+                    gsap.to(icon, {
+                        backgroundColor: "transparent",
+                        color: "var(--color-main)",
+                        borderColor: "rgba(0,0,0,0.2)",
+                        duration: 0.3,
+                    });
+                    textIcon.textContent = "+";
+                    item.classList.remove("is-open");
+                }
+            });
+        });
+    });
+</script>

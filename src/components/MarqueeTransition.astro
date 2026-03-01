@@ -1,0 +1,80 @@
+---
+// MarqueeTransition.astro - Giant masked text transition
+---
+
+<section
+    class="marquee-section relative w-full overflow-hidden bg-base py-10 md:py-20 flex flex-col justify-center"
+>
+    <div class="marquee-track flex flex-col gap-4 md:gap-8 w-full">
+        <!-- CUERPO going left -->
+        <div class="marquee-row w-[200vw] flex overflow-hidden">
+            <h2
+                class="marquee-text-left font-serif text-[25vw] md:text-[20vw] leading-[0.85] tracking-tighter uppercase whitespace-nowrap pl-[10vw]"
+            >
+                CUERPO CUERPO CUERPO CUERPO
+            </h2>
+        </div>
+        <!-- MENTE going right -->
+        <div class="marquee-row w-[200vw] flex overflow-hidden justify-end">
+            <h2
+                class="marquee-text-right font-serif text-[25vw] md:text-[20vw] leading-[0.85] tracking-tighter uppercase whitespace-nowrap pr-[10vw]"
+            >
+                MENTE MENTE MENTE MENTE
+            </h2>
+        </div>
+    </div>
+</section>
+
+<style>
+    .marquee-text-left,
+    .marquee-text-right {
+        color: rgba(0, 0, 0, 0.1); /* Fallback */
+        background-image: url("https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=1920&auto=format&fit=crop");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        will-change: transform;
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Slide left
+        gsap.to(".marquee-text-left", {
+            x: "-30vw",
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".marquee-section",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1,
+            },
+        });
+
+        // Slide right
+        gsap.fromTo(
+            ".marquee-text-right",
+            {
+                x: "-30vw",
+            },
+            {
+                x: "10vw",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".marquee-section",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1,
+                },
+            },
+        );
+    });
+</script>

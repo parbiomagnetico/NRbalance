@@ -1,0 +1,204 @@
+---
+// Navigation.astro — Gotu font, gold accent, no orange
+const navItems = [
+    { label: "Inicio", href: "#" },
+    { label: "Conócenos", href: "#about", hasDropdown: true },
+    { label: "Servicios", href: "#services", hasDropdown: true },
+    { label: "Precios", href: "#pricing" },
+    { label: "Blog", href: "#" },
+    { label: "Tienda", href: "#" },
+];
+---
+
+<header
+    id="main-nav"
+    class="fixed top-0 left-0 w-full z-[100] transition-all duration-500"
+>
+    <div class="section-container flex items-center justify-between h-[90px]">
+        <a href="/" class="flex items-center shrink-0">
+            <svg
+                id="nav-logo"
+                viewBox="0 0 1680.9 304.1"
+                class="h-8 md:h-10 w-auto fill-current text-white transition-colors duration-500"
+            >
+                <g>
+                    <path
+                        d="M-0.4,0.9c0.5-0.2,0.6-0.2,0.8-0.3c15.3-0.8,15.4-0.8,24.2,11.6c30,42.4,60,84.8,89.9,127.3
+                        c29.6,41.9,59.2,83.7,88.7,125.6c2,2.8,3.8,5.9,6.4,10c0-92.1,0-183.9,0-276c2.2-0.2,3.6-0.4,5.1-0.4c36,0,72-0.1,108,0.1
+                        C342-1,360.8,2.4,378.4,10.7c26.3,12.3,42.8,32.7,48.1,61.2c5.1,27.3,2.3,53.6-13.7,77.3c-12.5,18.5-30.1,29.8-51.2,36.2
+                        c-2.4,0.7-4.8,1.3-8,2.2c26.5,39.3,52.7,78.1,79.5,117.8c-7.1,0-13.4,0.2-19.7-0.2c-1.4-0.1-3-2-3.9-3.5
+                        c-19.3-28.5-38.4-57.1-57.6-85.7c-4.9-7.2-9.5-14.7-14.5-21.8c-1-1.5-3.4-2.9-5.1-2.9c-33.3,0.1-66.6,0.4-99.9,0.7
+                        c-1.5,0-2.9,0-4.8,0c0,37.9,0,74.6,0,112.2c-5.7,0-11,0.3-16.2-0.2c-1.6-0.2-3.4-2.3-4.5-4c-33.4-47.2-66.8-94.5-100.1-141.7
+                        C79.3,119.5,51.9,80.7,24.5,41.8c-2.1-2.9-4-6-6.8-8.8c0,90.3,0,180.6,0,271.1c-6,0-12.1,0-18,0C-0.4,203.1-0.4,102.1-0.4,0.9z
+                        M227.6,176.1c7.1,0,13.6,0.1,20.1,0c27.1-0.3,54.3-0.2,81.4-1.1c19-0.7,36.7-6.5,51.7-18.7c24.2-19.6,30.2-46,26.9-75.4
+                        c-1.3-11.6-5.1-22.4-12-31.9c-15.6-21.6-38-31.3-63.6-32.5c-30.6-1.4-61.3-0.5-91.9-0.6c-4.1,0-8.3,0-12.7,0
+                        C227.6,69.4,227.6,122.5,227.6,176.1z"
+                    ></path>
+                    <path
+                        d="M570.6,213.7c0-46.7,0-92.8,0-139c0.7-0.2,1.1-0.5,1.6-0.5c21.8,0,43.6-0.4,65.5,0c13.9,0.3,25,6.5,31.6,19.3
+                        c8.9,17.4,1.5,38.5-16.3,46.6c-0.7,0.3-1.4,0.8-1.6,0.9c5.3,3.2,11.2,5.8,15.9,9.7c19.7,16.6,14,50.1-10.1,59
+                        c-6.6,2.4-13.9,3.9-20.9,4.1c-20.8,0.5-41.6,0.2-62.4,0.2C572.8,214,571.8,213.8,570.6,213.7z M575.6,208.2
+                        c1,0.1,1.8,0.3,2.6,0.3c19.3,0,38.7,0.3,58-0.1c5.9-0.1,11.8-1.6,17.6-3.1c22.5-6.3,24.8-37.7,9.6-50.5c-8-6.7-17.2-9.3-27.3-9.4
+                        c-18.2-0.2-36.3-0.1-54.5-0.2c-1.9,0-3.9,0-6,0C575.6,166.4,575.6,187.2,575.6,208.2z M576.6,139.6c2.9,0,5.5,0,8.2,0
+                        c18-0.1,36,0.5,53.9-0.5c20.9-1.2,33.5-18.7,28.4-37.7c-3.6-13.3-15.4-21.9-31-22.1c-19-0.2-38,0-57,0.1c-0.8,0-1.6,0.2-2.6,0.3
+                        C576.6,99.6,576.6,119.4,576.6,139.6z"
+                    ></path>
+                    <path
+                        d="M1336.6,213.9c-4.5,1.3-6.7-0.6-9.1-3.8c-29.1-39.6-58.4-79.1-87.7-118.6c-2-2.8-4.1-5.5-7.2-8c0,43.5,0,87,0,130.6
+                        c-2.3,0-3.3,0-5,0c0-46.6,0-93,0-139.5c4.3-1.1,7.2-0.3,9.9,3.4c31.2,42.3,62.5,84.6,94.1,127.1c0-43.5,0-87.4,0-130.4
+                        c1.9-0.1,3.3-0.2,5-0.3C1336.6,120.4,1336.6,167.6,1336.6,213.9z"
+                    ></path>
+                    <path
+                        d="M1578.6,213.2v-139c0,0,67,0,101,0c0,1.5,0,3,0,5c-32,0-63.9,0-96,0c0,20.7,0,62,0,62h86.8c0.1,1.5,0.2,3,0.2,5h-86.1
+                        v62.3c0,0,15.4,0,23,0c22.8,0,45.6,0,68.5-0.1c4,0,5.8,1,4.4,4.8H1578.6z"
+                    ></path>
+                    <path
+                        d="M856.6,213.2c-4.7,1.7-6.4-0.4-7.9-4c-5.1-12.3-10.7-24.3-15.9-36.6c-1.2-2.8-4-4.7-7-4.6c-21.3,0.2-42.6,0.1-64.2,0.1
+                        c-0.2-1.7-0.4-3-0.6-5h67.6c-12.9-28.4-25.5-55.9-38.5-84.4c-1.7,3.3-3,5.6-4.1,7.9c-18.6,41.2-37.3,82.3-55.8,123.6
+                        c-1.7,3.7-3.9,3.9-7.5,3.1c6.8-15.2,13.6-30.4,20.4-45.5c13.5-29.8,27.2-59.6,40.8-89.4c1.2-2.7,1.9-5.3,6.1-5.2
+                        c4,0,4.5,2.5,5.6,5c20,44,40,88.1,60,132.1C855.9,211.2,856.2,212.1,856.6,213.2z"
+                    ></path>
+                    <path
+                        d="M1174.6,213.3c-4.4,1.4-6.3-0.1-7.9-3.9c-5.2-12.8-10.9-25.3-16.3-38c-1.2-2.7-2.7-3.5-5.6-3.5
+                        c-22,0.1-43.9,0.1-66.1,0.1c0-1.7,0-3.1,0-4.7c22.6,0,44.8,0,68,0c-12.9-28.2-25.5-55.9-38.7-84.9c-3.8,8.1-7.3,15.2-10.5,22.3
+                        c-16.3,36.3-32.5,72.5-48.6,108.8c-1.5,3.5-3.3,5.1-7.5,3.7c3.1-7.3,6.2-14.6,9.4-21.8c17-37.8,34-75.5,51-113.3
+                        c1.2-2.7,2.3-4.7,6-4.7c3.7,0,4.6,1.9,5.9,4.7c20,44.4,40,88.8,60.1,133.2C1174,211.8,1174.2,212.4,1174.6,213.3z"
+                    ></path>
+                    <path
+                        d="M1520,99.8c-1.8-0.5-4.3-0.5-5.4-1.7c-16.4-17.3-36.7-22.9-59.7-19.3c-30.1,4.7-52.5,31-53.2,61.7
+                        c-0.7,29.5,11.4,51.9,38.4,64.4c24.5,11.4,54.4,7.2,73.7-14.3c0.9-1,1.7-2.2,2.8-2.8c0.6-0.3,2.4,0.2,2.5,0.5
+                        c0.3,1.3,0.5,3.2-0.2,3.9c-3.4,3.7-6.7,7.6-10.7,10.4c-22.4,16.2-46.7,17.7-71.4,6.7c-24.3-10.7-37.5-30.4-40.2-56.6
+                        c-3-29.6,7.2-53.8,32.4-70.4c26.4-17.4,66.7-12.3,88.2,10.7c1.3,1.4,2.4,3.1,3.6,4.6C1520.6,98.4,1520.3,99.1,1520,99.8z"
+                    ></path>
+                    <path
+                        d="M913.6,74.2c0,44.7,0,134.1,0,134h89v6c0,0-63.7,0-94,0c0-46.6,0-93.1,0-140C910.2,74.2,911.9,74.2,913.6,74.2z"
+                    ></path>
+                </g>
+            </svg>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-8">
+            {
+                navItems.map((item) => (
+                    <a
+                        href={item.href}
+                        class="font-sans text-[14px] font-medium text-main/80 hover:text-main transition-colors duration-300 tracking-[0.2px] flex items-center gap-1"
+                    >
+                        {item.label}
+                        {item.hasDropdown && (
+                            <span class="text-[8px] opacity-40">▼</span>
+                        )}
+                    </a>
+                ))
+            }
+        </nav>
+
+        <a
+            href="#pricing"
+            class="hidden lg:inline-flex pill-btn pill-btn--primary"
+        >
+            <span class="text-[14px]">✳︎</span>
+            Reservar
+        </a>
+
+        <button
+            id="mobile-menu-toggle"
+            class="lg:hidden flex flex-col gap-[6px] p-2"
+            aria-label="Menú"
+        >
+            <span
+                class="hamburger-line block w-6 h-[2px] bg-main transition-all duration-300 origin-center"
+            ></span>
+            <span
+                class="hamburger-line block w-6 h-[2px] bg-main transition-all duration-300 origin-center"
+            ></span>
+        </button>
+    </div>
+
+    <div
+        id="mobile-menu"
+        class="lg:hidden fixed inset-0 bg-base z-[99] flex flex-col items-center justify-center gap-6 opacity-0 pointer-events-none transition-opacity duration-500"
+        style="visibility:hidden"
+    >
+        {
+            navItems.map((item) => (
+                <a
+                    href={item.href}
+                    class="mobile-nav-link font-serif text-3xl text-main"
+                >
+                    {item.label}
+                </a>
+            ))
+        }
+        <a href="#pricing" class="pill-btn pill-btn--primary mt-6">
+            <span>✳︎</span> Reservar
+        </a>
+    </div>
+</header>
+
+<div class="h-[90px]"></div>
+
+<script>
+    import { gsap } from "gsap";
+    document.addEventListener("DOMContentLoaded", () => {
+        const nav = document.getElementById("main-nav");
+        const toggle = document.getElementById("mobile-menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const lines = document.querySelectorAll(".hamburger-line");
+        const navLogo = document.getElementById("nav-logo");
+        let isOpen = false;
+        if (nav) {
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 80) {
+                    nav.style.backgroundColor = "rgba(249,246,240,0.95)";
+                    nav.style.backdropFilter = "blur(12px)";
+                    nav.style.boxShadow = "0 1px 0 rgba(0,0,0,0.05)";
+                    if (navLogo) {
+                        navLogo.classList.remove("text-white");
+                        navLogo.classList.add("text-main");
+                    }
+                } else {
+                    nav.style.backgroundColor = "transparent";
+                    nav.style.backdropFilter = "none";
+                    nav.style.boxShadow = "none";
+                    if (navLogo) {
+                        navLogo.classList.remove("text-main");
+                        navLogo.classList.add("text-white");
+                    }
+                }
+            });
+        }
+        if (toggle && mobileMenu) {
+            toggle.addEventListener("click", () => {
+                isOpen = !isOpen;
+                if (isOpen) {
+                    mobileMenu.style.visibility = "visible";
+                    mobileMenu.style.opacity = "1";
+                    mobileMenu.style.pointerEvents = "auto";
+                    gsap.to(lines[0], { rotation: 45, y: 4, duration: 0.3 });
+                    gsap.to(lines[1], { rotation: -45, y: -4, duration: 0.3 });
+                    gsap.from(".mobile-nav-link", {
+                        y: 30,
+                        opacity: 0,
+                        stagger: 0.08,
+                        duration: 0.5,
+                        ease: "power2.out",
+                    });
+                } else {
+                    mobileMenu.style.opacity = "0";
+                    mobileMenu.style.pointerEvents = "none";
+                    setTimeout(() => {
+                        mobileMenu.style.visibility = "hidden";
+                    }, 500);
+                    gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3 });
+                    gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3 });
+                }
+            });
+            mobileMenu.querySelectorAll("a").forEach((link) => {
+                link.addEventListener("click", () => {
+                    if (isOpen) toggle.click();
+                });
+            });
+        }
+    });
+</script>

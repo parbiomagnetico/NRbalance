@@ -1,0 +1,100 @@
+---
+// Founder.astro — Sticky Image & Scrolling Content
+---
+
+<section class="bg-peach/25 py-0 relative">
+    <div class="flex flex-col md:flex-row relative w-full items-start">
+        <!-- Scrolling Text Panel (Left) -->
+        <div
+            class="w-full md:w-1/2 flex flex-col justify-center px-8 md:px-16 lg:px-24 py-24 md:py-0 md:min-h-[150vh] order-2 md:order-1 z-10 bg-peach/25"
+        >
+            <div
+                class="founder-text-content md:sticky md:top-1/2 md:-translate-y-1/2"
+            >
+                <span
+                    class="text-[12px] font-bold tracking-[0.2em] uppercase text-main/50 mb-6 block"
+                >
+                    La Especialista
+                </span>
+                <h2
+                    class="font-serif text-[40px] md:text-[60px] tracking-tight text-main leading-[1.1] mb-4"
+                >
+                    Natalia<br /><span class="italic text-base/80"
+                        >Regalado</span
+                    >
+                </h2>
+                <p class="font-serif text-[18px] text-accent-luxury mb-8">
+                    Fundadora &nbsp;|&nbsp; Terapeuta Somática & Psicóloga
+                    Clínica
+                </p>
+                <div class="w-12 h-[1px] bg-main/20 mb-8"></div>
+                <p
+                    class="text-[16px] md:text-[18px] text-main/70 leading-[1.7] mb-10 max-w-md"
+                >
+                    Con formación académica en psicología clínica oficial y
+                    terapias somáticas avanzadas, Natalia comprende el cuerpo
+                    como el mapa de nuestras emociones. Su enfoque fundacional
+                    entrelaza la escucha activa cognitiva y el tacto preciso,
+                    creando un refugio seguro para tu reconexión.
+                </p>
+                <a href="#" class="pill-btn pill-btn--outline w-fit">
+                    <span class="text-accent-luxury text-[14px]">✳︎</span>
+                    Nuestra filosofía
+                </a>
+            </div>
+        </div>
+
+        <!-- Sticky Image Panel (Right) -->
+        <div
+            class="founder-image-pin w-full md:w-1/2 sticky top-0 h-[60vh] md:h-screen order-1 md:order-2 overflow-hidden bg-main border-l border-main/10 relative"
+        >
+            <div class="absolute inset-0 z-0">
+                <img
+                    src="/founder_portrait.png"
+                    alt="Natalia Regalado — Fundadora"
+                    class="w-full h-full object-cover object-top opacity-90 scale-105"
+                    loading="lazy"
+                />
+            </div>
+            <!-- Overlay to make it feel more editorial -->
+            <div
+                class="absolute inset-0 bg-gradient-to-t from-main/60 via-transparent to-transparent"
+            >
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Image Parallax on Sticky
+        gsap.to(".founder-image-pin img", {
+            yPercent: 8,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".founder-image-pin",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+            },
+        });
+
+        // Text reveal stagger
+        gsap.from(".founder-text-content > *", {
+            y: 40,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".founder-text-content",
+                start: "top 80%",
+            },
+        });
+    });
+</script>

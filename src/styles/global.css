@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@theme {
+    --color-base: #F9F6F0;
+    --color-main: #2C302B;
+    --color-accent: #7A8B76;
+    --color-accent-luxury: #BFA071;
+    --color-secondary: #EAE6DF;
+    --color-peach: #F0DFD0;
+    --font-sans: "Archivo", sans-serif;
+    --font-serif: "Gotu", serif;
+    --font-handwritten: "League Script", cursive;
+}
+
+@layer base {
+
+    html,
+    body {
+        background-color: var(--color-base);
+        color: var(--color-main);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-serif);
+        letter-spacing: -0.01em;
+        color: var(--color-main);
+    }
+
+    p {
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--color-main);
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+/* ── Pill Button ── */
+.pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    border: none;
+    line-height: 1;
+}
+
+.pill-btn--primary {
+    background-color: var(--color-peach);
+    color: var(--color-accent-luxury);
+}
+
+.pill-btn--primary:hover {
+    background-color: var(--color-accent-luxury);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(191, 160, 113, 0.25);
+}
+
+.pill-btn--outline {
+    background-color: #fff;
+    color: var(--color-main);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.pill-btn--outline:hover {
+    background-color: var(--color-secondary);
+    transform: translateY(-2px);
+}
+
+/* ── Section Containers ── */
+.section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+@media (max-width: 768px) {
+    .section-container {
+        padding: 0 24px;
+    }
+}
+
+/* ── Custom Cursor ── */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+    mix-blend-mode: difference;
+}
+
+.custom-cursor.hovering {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-accent-luxury);
+}
+
+/* ── Grain Overlay ── */
+.grain-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Hide cursor on desktop ── */
+@media (hover: hover) and (pointer: fine) {
+    body {
+        cursor: none;
+    }
+
+    a,
+    button,
+    input,
+    select,
+    textarea {
+        cursor: none;
+    }
+}

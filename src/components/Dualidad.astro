@@ -1,0 +1,141 @@
+---
+// Dualidad.astro - Pinned Clip-Path Reveal Concept
+---
+
+<section
+    id="dualidad-pin"
+    class="relative w-full h-[100svh] overflow-hidden bg-base"
+>
+    <!-- Panel 1 (Fondo): La Mente -->
+    <div
+        class="absolute inset-0 w-full h-full flex items-center justify-center p-8 md:p-24 bg-secondary z-10 overflow-hidden"
+    >
+        <div class="absolute inset-0 z-0">
+            <img
+                src="/psychology_session.png"
+                alt="Psicología Clínica"
+                class="w-full h-full object-cover opacity-20 mix-blend-multiply grayscale"
+            />
+        </div>
+
+        <div
+            class="relative z-10 max-w-2xl text-center flex flex-col items-center"
+        >
+            <span
+                class="text-[12px] md:text-[14px] font-bold tracking-[0.3em] uppercase text-main/50 mb-6 block"
+            >
+                01 — La Mente
+            </span>
+            <h2
+                class="font-serif text-[50px] md:text-[90px] lg:text-[120px] leading-[0.9] tracking-tighter text-main mb-8"
+            >
+                Psicología<br /><span class="italic text-base/80">Clínica.</span
+                >
+            </h2>
+            <p
+                class="text-[16px] md:text-[20px] text-main/70 leading-[1.6] max-w-lg mb-12"
+            >
+                Abordamos el origen del bloqueo. Un espacio seguro para desatar
+                nudos emocionales y sanar el trauma a través de la palabra.
+            </p>
+            <div class="w-[1px] h-24 bg-main/20"></div>
+            <span
+                class="text-[10px] uppercase tracking-widest text-main/40 mt-6 hidden md:block"
+                >( Keep Scrolling )</span
+            >
+        </div>
+    </div>
+
+    <!-- Panel 2 (Sobrepuesto / Enmascarado): El Cuerpo -->
+    <div
+        id="cuerpo-panel"
+        class="absolute inset-0 w-full h-full flex items-center justify-center p-8 md:p-24 bg-peach z-20 overflow-hidden"
+        style="clip-path: circle(0% at 50% 50%);"
+    >
+        <div class="absolute inset-0 z-0">
+            <img
+                src="/premium_massage.png"
+                alt="Terapia Manual"
+                class="w-full h-full object-cover opacity-30 mix-blend-multiply grayscale"
+            />
+        </div>
+
+        <div
+            class="relative z-10 max-w-2xl text-center flex flex-col items-center"
+        >
+            <span
+                class="text-[12px] md:text-[14px] font-bold tracking-[0.3em] uppercase text-main/50 mb-6 block"
+            >
+                02 — El Cuerpo
+            </span>
+            <h2
+                class="font-sans font-medium text-[50px] md:text-[90px] lg:text-[120px] leading-[0.9] tracking-tighter text-main mb-8"
+            >
+                Terapia<br /><span class="italic text-base/80 font-serif"
+                    >Somática.</span
+                >
+            </h2>
+            <p
+                class="text-[16px] md:text-[20px] text-main/70 leading-[1.6] max-w-lg mb-12"
+            >
+                El cuerpo es el mapa de tus experiencias. Restauramos la memoria
+                celular mediante técnicas avanzadas y profundo contacto.
+            </p>
+            <div class="w-[1px] h-24 bg-main/20"></div>
+        </div>
+    </div>
+
+    <!-- Center Floating Badge -->
+    <div
+        class="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 z-30 w-24 h-24 md:w-32 md:h-32 rounded-full border border-main/20 flex flex-col items-center justify-center text-center backdrop-blur-md pointer-events-none mix-blend-difference hidden md:flex opacity-60"
+    >
+        <span
+            class="font-serif text-[10px] md:text-[12px] uppercase tracking-widest text-white font-bold"
+            >Inseparables</span
+        >
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const cuerpoPanel = document.getElementById("cuerpo-panel");
+
+        if (cuerpoPanel) {
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#dualidad-pin",
+                    start: "top top",
+                    end: "+=150%", // How long the circle expands (1.5x screen height)
+                    scrub: 1, // Smooth scrub
+                    pin: true,
+                    anticipatePin: 1,
+                },
+            });
+
+            // Expands the circle mask to reveal the second panel
+            tl.to(cuerpoPanel, {
+                clipPath: "circle(150% at 50% 50%)",
+                ease: "none",
+            });
+
+            // Add a slight scale effect to the background images for extra awwwards depth
+            const menteImg = document.querySelector(
+                "#dualidad-pin > div:first-child img",
+            );
+            const cuerpoImg = cuerpoPanel.querySelector("img");
+
+            if (menteImg) {
+                tl.to(menteImg, { scale: 1.1, ease: "none" }, 0);
+            }
+            if (cuerpoImg) {
+                gsap.set(cuerpoImg, { scale: 1.2 });
+                tl.to(cuerpoImg, { scale: 1, ease: "none" }, 0);
+            }
+        }
+    });
+</script>

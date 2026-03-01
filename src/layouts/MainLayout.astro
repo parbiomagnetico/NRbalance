@@ -1,0 +1,94 @@
+---
+import "@fontsource/archivo";
+import "@fontsource/gotu";
+import "@fontsource/league-script";
+import "../styles/global.css";
+
+import SmoothScroll from "../components/SmoothScroll.astro";
+import Navigation from "../components/Navigation.astro";
+
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="description"
+            content="NR Balance — Masaje y psicología en equilibrio"
+        />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <SmoothScroll />
+        <Navigation />
+
+        <div id="custom-cursor" class="custom-cursor"></div>
+        <div class="grain-overlay"></div>
+
+        <slot />
+
+        <!-- UP button -->
+        <button
+            id="scroll-up-btn"
+            class="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-white shadow-lg flex flex-col items-center justify-center text-main text-xs font-sans font-semibold opacity-0 translate-y-4 pointer-events-none transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
+            aria-label="Volver arriba"
+        >
+            <span class="text-[10px] leading-none">▲</span>
+            <span class="text-[10px] leading-none tracking-wider">UP</span>
+        </button>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const cursor = document.getElementById("custom-cursor");
+                if (cursor) {
+                    document.addEventListener("mousemove", (e) => {
+                        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+                    });
+                    const setup = () => {
+                        document
+                            .querySelectorAll(
+                                "a, button, input, select, textarea",
+                            )
+                            .forEach((el) => {
+                                el.addEventListener("mouseenter", () =>
+                                    cursor.classList.add("hovering"),
+                                );
+                                el.addEventListener("mouseleave", () =>
+                                    cursor.classList.remove("hovering"),
+                                );
+                            });
+                    };
+                    setup();
+                    document.addEventListener("astro:page-load", setup);
+                }
+
+                const upBtn = document.getElementById("scroll-up-btn");
+                if (upBtn) {
+                    window.addEventListener("scroll", () => {
+                        if (window.scrollY > 600) {
+                            upBtn.style.opacity = "1";
+                            upBtn.style.transform = "translateY(0)";
+                            upBtn.style.pointerEvents = "auto";
+                        } else {
+                            upBtn.style.opacity = "0";
+                            upBtn.style.transform = "translateY(1rem)";
+                            upBtn.style.pointerEvents = "none";
+                        }
+                    });
+                    upBtn.addEventListener("click", () =>
+                        window.scrollTo({ top: 0, behavior: "smooth" }),
+                    );
+                }
+            });
+        </script>
+    </body>
+</html>

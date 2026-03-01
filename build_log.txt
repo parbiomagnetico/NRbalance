@@ -1,0 +1,22 @@
+
+> nr-balance@0.0.1 build
+> astro build
+
+[2m15:00:08[22m [34m[content][39m Syncing content
+[2m15:00:08[22m [34m[content][39m Synced content
+[2m15:00:08[22m [34m[types][39m Generated [2m63ms[22m
+[2m15:00:08[22m [34m[build][39m output: [34m"static"[39m
+[2m15:00:08[22m [34m[build][39m mode: [34m"static"[39m
+[2m15:00:08[22m [34m[build][39m directory: [34mC:\Users\facto\Desktop\NRBalance\nr-balance\dist\[39m
+[2m15:00:08[22m [34m[build][39m Collecting build info...
+[2m15:00:08[22m [34m[build][39m [32mÔ£ô Completed in 86ms.[39m
+[2m15:00:08[22m [34m[build][39m Building static entrypoints...
+15:00:08 [ERROR] [vite] Ô£ù Build failed in 740ms
+[@tailwindcss/vite:generate:build] Could not resolve value for theme function: `theme(colors.accent)`. Consider checking if the path is correct or provide a fallback value to silence this error.
+file: C:/Users/facto/Desktop/NRBalance/nr-balance/src/styles/global.css
+  Stack trace:
+    at Object.On [as theme] (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/node_modules/tailwindcss/dist/chunk-L5IEUH3R.mjs:13:5816)
+    at Ar (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/node_modules/tailwindcss/dist/chunk-L5IEUH3R.mjs:3:1733)
+    at Mr (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/node_modules/tailwindcss/dist/chunk-L5IEUH3R.mjs:13:6389)
+    at Ar (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/node_modules/tailwindcss/dist/chunk-L5IEUH3R.mjs:3:1733)
+    at De (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/node_modules/tailwindcss/dist/chunk-L5IEUH3R.mjs:13:6086)

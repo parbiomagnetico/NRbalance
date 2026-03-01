@@ -1,0 +1,168 @@
+---
+// Pricing.astro - Minimalist Editorial Pricing List
+---
+
+<section id="pricing" class="bg-secondary py-20 md:py-32">
+    <div class="section-container">
+        <div
+            class="flex flex-col md:flex-row justify-between items-start mb-16 md:mb-24 gap-8"
+        >
+            <h2
+                class="font-serif text-[36px] md:text-[60px] leading-[1.1] tracking-tighter text-main"
+            >
+                Inversión en<br />tu equilibrio.
+            </h2>
+            <p
+                class="text-[16px] text-main/60 leading-[1.6] max-w-sm md:text-right"
+            >
+                Tarifas diseñadas con transparencia. Sesiones que se adaptan a
+                la profundidad de tu proceso personal.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+            <!-- Psicología Column -->
+            <div class="pricing-column flex flex-col">
+                <h3
+                    class="font-sans text-[12px] font-bold tracking-[0.2em] uppercase text-main/40 mb-8 pb-4 border-b border-main/10"
+                >
+                    Psicología Clínica
+                </h3>
+
+                <div class="flex flex-col gap-6">
+                    <div
+                        class="flex justify-between items-end border-b border-main/5 pb-4 group cursor-pointer hover:border-main/30 transition-colors"
+                    >
+                        <div>
+                            <h4
+                                class="font-serif text-[20px] text-main group-hover:text-accent-luxury transition-colors"
+                            >
+                                Sesión Individual
+                            </h4>
+                            <span class="text-[14px] text-main/50"
+                                >60 Minutos</span
+                            >
+                        </div>
+                        <span class="font-serif text-[22px] text-main">75€</span
+                        >
+                    </div>
+
+                    <div
+                        class="flex justify-between items-end border-b border-main/5 pb-4 group cursor-pointer hover:border-main/30 transition-colors"
+                    >
+                        <div>
+                            <h4
+                                class="font-serif text-[20px] text-main group-hover:text-accent-luxury transition-colors"
+                            >
+                                Bono 4 Sesiones
+                            </h4>
+                            <span class="text-[14px] text-main/50"
+                                >Validez 2 meses</span
+                            >
+                        </div>
+                        <span class="font-serif text-[22px] text-main"
+                            >280€</span
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terapia Manual Column -->
+            <div class="pricing-column flex flex-col">
+                <h3
+                    class="font-sans text-[12px] font-bold tracking-[0.2em] uppercase text-main/40 mb-8 pb-4 border-b border-main/10"
+                >
+                    Terapia Manual Avanzada
+                </h3>
+
+                <div class="flex flex-col gap-6">
+                    <div
+                        class="flex justify-between items-end border-b border-main/5 pb-4 group cursor-pointer hover:border-main/30 transition-colors"
+                    >
+                        <div>
+                            <h4
+                                class="font-serif text-[20px] text-main group-hover:text-accent-luxury transition-colors"
+                            >
+                                Masaje Relajante
+                            </h4>
+                            <span class="text-[14px] text-main/50"
+                                >60 Minutos</span
+                            >
+                        </div>
+                        <span class="font-serif text-[22px] text-main">65€</span
+                        >
+                    </div>
+
+                    <div
+                        class="flex justify-between items-end border-b border-main/5 pb-4 group cursor-pointer hover:border-main/30 transition-colors"
+                    >
+                        <div>
+                            <h4
+                                class="font-serif text-[20px] text-main group-hover:text-accent-luxury transition-colors"
+                            >
+                                Deep Tissue (Espalda/Cuello)
+                            </h4>
+                            <span class="text-[14px] text-main/50"
+                                >45 Minutos</span
+                            >
+                        </div>
+                        <span class="font-serif text-[22px] text-main">55€</span
+                        >
+                    </div>
+
+                    <div
+                        class="flex justify-between items-end border-b border-main/5 pb-4 group cursor-pointer hover:border-main/30 transition-colors"
+                    >
+                        <div class="flex items-center gap-3">
+                            <div>
+                                <h4
+                                    class="font-serif text-[20px] text-main group-hover:text-accent-luxury transition-colors"
+                                >
+                                    Sesión Integrativa
+                                </h4>
+                                <span class="text-[14px] text-main/50"
+                                    >Masaje + Regulación Somática (90 min)</span
+                                >
+                            </div>
+                            <span
+                                class="hidden md:inline-block px-2 py-1 bg-peach/50 text-accent-luxury text-[10px] uppercase font-bold tracking-widest rounded-full"
+                                >Recomendado</span
+                            >
+                        </div>
+                        <span class="font-serif text-[22px] text-main"
+                            >110€</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Setup stagger for each individual pricing item instead of the whole column
+        const pricingGroups = document.querySelectorAll(".pricing-column");
+
+        pricingGroups.forEach((group) => {
+            const items = group.querySelectorAll(".group");
+            gsap.from(items, {
+                y: 30,
+                scale: 0.95,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.15,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: group,
+                    start: "top 85%",
+                },
+            });
+        });
+    });
+</script>

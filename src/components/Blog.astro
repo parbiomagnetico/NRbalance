@@ -1,0 +1,98 @@
+---
+// Blog.astro — Clean editorial layout
+const posts = [
+    {
+        title: "El masaje como herramienta para gestionar la ansiedad",
+        category: "Bienestar",
+        date: "14 Sep, 2026",
+        image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop",
+    },
+    {
+        title: "¿Por qué el cuerpo duele cuando la mente se estresa?",
+        category: "Psicología",
+        date: "02 Sep, 2026",
+        image: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=800&auto=format&fit=crop",
+    },
+];
+---
+
+<section id="blog" class="bg-secondary py-20 md:py-28">
+    <div class="section-container">
+        <div
+            class="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-20 gap-8"
+        >
+            <h2
+                class="font-serif text-[32px] md:text-[50px] leading-[1.2] tracking-tight text-main"
+            >
+                Nuestras reflexiones.
+            </h2>
+            <a href="#blog" class="pill-btn pill-btn--outline w-fit shrink-0">
+                <span class="text-accent-luxury text-[14px]">✳︎</span>
+                Ver todos los artículos
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
+            {
+                posts.map((post) => (
+                    <a href="#" class="blog-card group block cursor-pointer">
+                        <div class="w-full overflow-hidden mb-6 aspect-[4/3]">
+                            <img
+                                src={post.image}
+                                alt={post.title}
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="text-[12px] font-bold tracking-wider uppercase text-accent-luxury bg-peach/50 px-3 py-1 rounded-full">
+                                {post.category}
+                            </span>
+                            <span class="text-[14px] text-main/50">
+                                {post.date}
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-[24px] md:text-[28px] leading-[1.3] text-main tracking-tight group-hover:text-accent-luxury transition-colors duration-300">
+                            {post.title}
+                        </h3>
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Blog cards reveal
+        gsap.from(".blog-card", {
+            y: 80,
+            opacity: 0,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: "expo.out",
+            scrollTrigger: { trigger: ".blog-card", start: "top 85%" },
+        });
+
+        // Parallax inside the images
+        gsap.utils.toArray(".blog-card").forEach((card: any) => {
+            const img = card.querySelector("img");
+            if (img) {
+                gsap.to(img, {
+                    yPercent: 15,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }
+        });
+    });
+</script>

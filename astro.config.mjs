@@ -8,6 +8,27 @@ export default defineConfig({
   output: 'server',
   adapter: cloudflare(),
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      rollupOptions: {
+        external: [
+          'node:buffer',
+          'node:crypto',
+          'node:events',
+          'node:fs',
+          'node:http',
+          'node:https',
+          'node:net',
+          'node:os',
+          'node:path',
+          'node:process',
+          'node:stream',
+          'node:url',
+          'node:util',
+          'node:zlib',
+          'node:stream/web'
+        ]
+      }
+    }
   }
 });

@@ -1,6 +1,7 @@
 name = "nr-balance"
 compatibility_date = "2024-03-05"
 compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = "dist"
 
 # Las variables de entorno en producción se configuran 
 # desde el panel de control web de Cloudflare Pages (Settings > Environment variables),

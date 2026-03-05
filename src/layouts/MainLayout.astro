@@ -9,9 +9,11 @@ import Navigation from "../components/Navigation.astro";
 
 interface Props {
     title: string;
+    hideNav?: boolean;
+    hideFooter?: boolean;
 }
 
-const { title } = Astro.props;
+const { title, hideNav = false, hideFooter = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -20,8 +22,18 @@ const { title } = Astro.props;
         <meta charset="UTF-8" />
         <meta
             name="description"
-            content="NR Balance — Masaje y psicología en equilibrio"
+            content="NR Balance — Especialistas en Masaje de Tejido Profundo, Descompresión Física y Psicología Clínica en Madrid. Recupera tu equilibrio físico y mental."
         />
+        <meta
+            name="keywords"
+            content="masaje profundo, psicología clínica, dolor lumbar, bruxismo, ansiedad, estrés, terapia somática, madrid, nr balance"
+        />
+        <meta property="og:title" content={title} />
+        <meta
+            property="og:description"
+            content="Especialistas en fisiología, biomecánica y psicología clínica. Protocolos enfocados en resultados."
+        />
+        <meta property="og:type" content="website" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
@@ -29,22 +41,27 @@ const { title } = Astro.props;
     </head>
     <body>
         <SmoothScroll />
-        <Navigation />
+        {!hideNav && <Navigation />}
 
         <div id="custom-cursor" class="custom-cursor"></div>
         <div class="grain-overlay"></div>
 
         <slot />
 
-        <!-- UP button -->
-        <button
-            id="scroll-up-btn"
-            class="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-white shadow-lg flex flex-col items-center justify-center text-main text-xs font-sans font-semibold opacity-0 translate-y-4 pointer-events-none transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
-            aria-label="Volver arriba"
-        >
-            <span class="text-[10px] leading-none">▲</span>
-            <span class="text-[10px] leading-none tracking-wider">UP</span>
-        </button>
+        {
+            !hideFooter && (
+                <button
+                    id="scroll-up-btn"
+                    class="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-white shadow-lg flex flex-col items-center justify-center text-main text-xs font-sans font-semibold opacity-0 translate-y-4 pointer-events-none transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
+                    aria-label="Volver arriba"
+                >
+                    <span class="text-[10px] leading-none">▲</span>
+                    <span class="text-[10px] leading-none tracking-wider">
+                        UP
+                    </span>
+                </button>
+            )
+        }
 
         <script>
             document.addEventListener("DOMContentLoaded", () => {
@@ -56,7 +73,7 @@ const { title } = Astro.props;
                     const setup = () => {
                         document
                             .querySelectorAll(
-                                "a, button, input, select, textarea",
+                                "a, button, input, select, textarea, .custom-cursor-hover, .review-card",
                             )
                             .forEach((el) => {
                                 el.addEventListener("mouseenter", () =>

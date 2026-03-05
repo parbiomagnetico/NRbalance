@@ -71,24 +71,29 @@
 .pill-btn--primary {
     background-color: var(--color-peach);
     color: var(--color-accent-luxury);
+    box-shadow: 0 4px 15px rgba(191, 160, 113, 0.1);
 }
 
 .pill-btn--primary:hover {
     background-color: var(--color-accent-luxury);
     color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(191, 160, 113, 0.25);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(191, 160, 113, 0.35);
 }
 
 .pill-btn--outline {
-    background-color: #fff;
+    background-color: transparent;
     color: var(--color-main);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(44, 48, 43, 0.15);
+    backdrop-filter: blur(8px);
 }
 
 .pill-btn--outline:hover {
-    background-color: var(--color-secondary);
-    transform: translateY(-2px);
+    background-color: var(--color-main);
+    color: var(--color-base);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(44, 48, 43, 0.15);
+    border-color: var(--color-main);
 }
 
 /* ── Section Containers ── */
@@ -109,21 +114,27 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    background-color: var(--color-accent);
+    background-color: var(--color-main);
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.3s ease,
+        opacity 0.3s ease;
     mix-blend-mode: difference;
+    opacity: 0.6;
 }
 
 .custom-cursor.hovering {
-    width: 40px;
-    height: 40px;
-    background-color: var(--color-accent-luxury);
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-base);
+    opacity: 1;
+    mix-blend-mode: difference;
 }
 
 /* ── Grain Overlay ── */

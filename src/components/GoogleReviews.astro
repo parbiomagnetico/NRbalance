@@ -1,0 +1,180 @@
+---
+// GoogleReviews.astro - Horizontal Scroll GSAP Testimonials (Merged)
+const reviews = [
+    {
+        author: "Elena M.",
+        date: "Hace 2 semanas",
+        rating: 5,
+        text: "Llevaba meses con dolor lumbar crónico y ansiedad por el trabajo. Natalia abordó ambos problemas de forma espectacular. Su masaje de tejido profundo me quitó el dolor físico, y su enfoque psicológico me ayudó a entender de dónde venía tanta tensión.",
+        service: "Tejido Profundo + Sesión Clínica",
+    },
+    {
+        author: "Javier R.",
+        date: "Hace 1 mes",
+        rating: 5,
+        text: "El nivel de profesionalismo de este estudio es otro nivel. Fui por problemas de bruxismo severo y la descompresión cervico-mandibular fue un antes y un después. Ya no me despierto con dolor de cabeza.",
+        service: "Descompresión Cervico-Mandibular",
+    },
+    {
+        author: "Carmen T.",
+        date: "Hace 2 meses",
+        rating: 5,
+        text: "Un espacio de absoluto respeto. La terapia para procesar estrés crónico que hace Natalia está fundamentada en ciencia. Me ha enseñado a regular mi sistema nervioso cuando noto que voy a entrar en pánico.",
+        service: "Gestión Ansiedad y Estrés",
+    },
+    {
+        author: "Sofía L.",
+        date: "Hace 3 meses",
+        rating: 5,
+        text: "La atención es de primerísima calidad. Desde que cruzas la puerta notas la diferencia. Me hago la limpieza somática una vez al mes y es la mejor decisión que he tomado por mi salud.",
+        service: "Limpieza Somática",
+    },
+];
+---
+
+<section
+    id="google-reviews-pin"
+    class="bg-peach/10 relative h-[100svh] w-full overflow-hidden flex flex-col justify-center"
+>
+    <!-- Background decorative element from Community -->
+    <div
+        class="absolute top-0 right-0 w-[50vw] h-[100vh] bg-secondary/80 rounded-l-full blur-3xl opacity-30 pointer-events-none -translate-x-1/2"
+    >
+    </div>
+
+    <!-- Title floating above -->
+    <div
+        class="absolute top-[15vh] md:top-[20vh] left-8 md:left-24 z-20 pointer-events-none"
+    >
+        <div
+            class="flex flex-col md:flex-row items-start md:items-center gap-6"
+        >
+            <h2
+                class="font-serif text-[40px] md:text-[70px] leading-[1.1] tracking-tighter text-main"
+            >
+                Resultados<br /><span class="italic text-base/80">Reales.</span>
+            </h2>
+
+            <!-- Google Badge -->
+            <div
+                class="hidden md:flex items-center gap-4 bg-white/40 backdrop-blur-md px-6 py-4 rounded-full border border-main/10 shadow-sm flex-shrink-0 pointer-events-auto self-end md:mb-4 ml-0 md:ml-12"
+            >
+                <div class="flex flex-col">
+                    <span
+                        class="text-[12px] font-bold uppercase tracking-widest text-main"
+                        >Excelente en Google</span
+                    >
+                    <div class="flex gap-1 text-accent-luxury text-[14px]">
+                        ★ ★ ★ ★ ★
+                    </div>
+                </div>
+                <div
+                    class="bg-main text-white text-[14px] font-serif font-bold w-12 h-12 rounded-full flex items-center justify-center"
+                >
+                    5.0
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Track -->
+    <div
+        id="reviews-track"
+        class="flex items-center pt-[15vh] pb-10 pl-8 md:pl-24 w-[450vw] md:w-[320vw] lg:w-[220vw]"
+    >
+        {
+            reviews.map((review, index) => (
+                <div class="review-panel w-[85vw] md:w-[60vw] lg:w-[45vw] shrink-0 pr-6 md:pr-12">
+                    <div class="bg-base border border-main/10 p-8 md:p-12 lg:p-16 h-full flex flex-col justify-between hover:border-peach/50 transition-colors duration-500 custom-cursor-hover">
+                        <div>
+                            <div class="flex justify-between items-start mb-8">
+                                <div class="flex gap-1 text-accent-luxury text-[14px]">
+                                    ★ ★ ★ ★ ★
+                                </div>
+                                <svg
+                                    class="w-8 h-8 text-main/10 group-hover:text-amber-500 transition-colors duration-300"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                >
+                                    <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
+                                </svg>
+                            </div>
+
+                            <p class="font-serif text-[20px] md:text-[28px] leading-[1.5] text-main tracking-tight mb-12">
+                                "{review.text}"
+                            </p>
+                        </div>
+
+                        <div class="flex flex-col gap-1 border-t border-main/10 pt-6">
+                            <div class="flex items-center gap-4 mb-2">
+                                <div class="w-8 h-8 rounded-full bg-main/5 flex items-center justify-center text-main font-serif text-[14px]">
+                                    {review.author.charAt(0)}
+                                </div>
+                                <span class="font-serif text-[18px] md:text-[20px] text-accent-luxury">
+                                    — {review.author}
+                                </span>
+                            </div>
+                            <span class="text-[12px] md:text-[14px] text-main/50 uppercase tracking-widest font-bold mt-2">
+                                {review.service}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            ))
+        }
+
+        <!-- Empty panel for padding at the end -->
+        <div class="w-[15vw] shrink-0"></div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const track = document.getElementById("reviews-track");
+        const panels = gsap.utils.toArray(".review-panel");
+
+        if (track && panels.length > 0) {
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#google-reviews-pin",
+                    start: "top top",
+                    end: () => "+=" + track.offsetWidth,
+                    scrub: 1, // Smooth scrub
+                    pin: true,
+                    anticipatePin: 1,
+                },
+            });
+
+            tl.to(panels, {
+                xPercent: -100 * panels.length,
+                ease: "none",
+            });
+
+            // Add slight rotation/skew effect based on scroll velocity
+            // This is a premium Awwwards touch
+            ScrollTrigger.create({
+                trigger: "#google-reviews-pin",
+                start: "top top",
+                end: () => "+=" + track.offsetWidth,
+                onUpdate: (self) => {
+                    const velocity = Math.min(
+                        Math.max(self.getVelocity() / 500, -5),
+                        5,
+                    );
+                    gsap.to(".review-panel > div", {
+                        skewX: velocity,
+                        rotateY: velocity * 2,
+                        ease: "power3.out",
+                        overwrite: "auto",
+                        duration: 0.8,
+                    });
+                },
+            });
+        }
+    });
+</script>

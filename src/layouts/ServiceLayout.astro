@@ -1,0 +1,111 @@
+---
+import MainLayout from "./MainLayout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+    title: string;
+    category: string;
+    subtitle: string;
+    description: string;
+    duration: string;
+    benefits: string[];
+    image: string;
+}
+
+const { title, category, subtitle, description, duration, benefits, image } =
+    Astro.props;
+---
+
+<MainLayout title={`${title} | NR Balance`}>
+    <Navigation />
+
+    <!-- Hero Section -->
+    <section
+        class="relative pt-32 pb-20 md:pt-48 md:pb-32 bg-base min-h-[70vh] flex items-center"
+    >
+        <div
+            class="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center gap-12"
+        >
+            <div class="w-full md:w-1/2 flex flex-col items-start z-10">
+                <span
+                    class="text-[12px] font-bold tracking-[0.2em] uppercase text-accent-luxury mb-6 block"
+                >
+                    {category}
+                </span>
+                <h1
+                    class="font-serif text-[40px] md:text-[60px] leading-[1.1] tracking-tight text-main mb-6"
+                >
+                    {title}
+                </h1>
+                <p
+                    class="font-sans text-[18px] md:text-[20px] text-main/70 leading-relaxed max-w-lg mb-10"
+                >
+                    {subtitle}
+                </p>
+                <div class="flex items-center gap-4">
+                    <a href="#booking" class="pill-btn pill-btn--primary">
+                        <span class="text-[14px]">✳︎</span>
+                        Reservar Sesión
+                    </a>
+                    <span
+                        class="text-[12px] font-mono tracking-widest text-main/50 uppercase border border-main/10 rounded-full px-4 py-2"
+                    >
+                        {duration}
+                    </span>
+                </div>
+            </div>
+            <div
+                class="w-full md:w-1/2 relative h-[40vh] md:h-[60vh] rounded-t-[200px] md:rounded-t-[300px] overflow-hidden"
+            >
+                <img
+                    src={image}
+                    alt={title}
+                    class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply"
+                />
+                <div class="absolute inset-0 bg-main/5"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content & Benefits -->
+    <section class="py-24 bg-secondary">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2
+                class="font-serif text-[32px] md:text-[40px] text-main mb-12 border-b border-main/20 pb-6"
+            >
+                Fundamento Clínico
+            </h2>
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <p
+                        class="text-[16px] md:text-[18px] leading-[1.8] text-main/80"
+                    >
+                        {description}
+                    </p>
+                </div>
+                <div class="md:w-1/2">
+                    <h3
+                        class="font-sans text-[14px] font-bold tracking-[0.2em] uppercase text-main/50 mb-6"
+                    >
+                        Objetivos del Protocolo
+                    </h3>
+                    <ul class="flex flex-col gap-4">
+                        {
+                            benefits.map((benefit) => (
+                                <li class="flex items-start gap-4 text-[16px] text-main/80">
+                                    <span class="text-accent-luxury mt-1">
+                                        ✳︎
+                                    </span>
+                                    <span>{benefit}</span>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <Footer />
+</MainLayout>

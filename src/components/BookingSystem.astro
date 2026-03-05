@@ -1,0 +1,790 @@
+---
+// BookingSystem.astro - AAA Premium Multi-step Booking UI (Fluid Vertical Reveal)
+const services = [
+    {
+        id: "deep-tissue",
+        name: "Masaje Tejido Profundo",
+        category: "cuerpo",
+        duration: 60,
+        price: 65,
+    },
+    {
+        id: "descompresion-fisica",
+        name: "Masaje Descompresión",
+        category: "cuerpo",
+        duration: 60,
+        price: 60,
+    },
+    {
+        id: "crio-recuperacion",
+        name: "Crio-Recuperación",
+        category: "cuerpo",
+        duration: 45,
+        price: 50,
+    },
+    {
+        id: "cervico-mandibular",
+        name: "Cervico-Mandibular",
+        category: "cuerpo",
+        duration: 45,
+        price: 55,
+    },
+    {
+        id: "ansiedad-estres",
+        name: "Gestión Ansiedad (Piscología)",
+        category: "mente",
+        duration: 60,
+        price: 70,
+    },
+    {
+        id: "estado-animo",
+        name: "Estado de Ánimo (Psicología)",
+        category: "mente",
+        duration: 60,
+        price: 70,
+    },
+    {
+        id: "trauma",
+        name: "Recuperación de Trauma (Psicología)",
+        category: "mente",
+        duration: 60,
+        price: 80,
+    },
+    {
+        id: "terapia-pareja",
+        name: "Terapia de Pareja",
+        category: "mente",
+        duration: 90,
+        price: 100,
+    },
+];
+---
+
+<div id="booking-widget" class="w-full max-w-[1200px] mx-auto bg-base rounded-[40px] shadow-2xl overflow-hidden border border-main/5 flex flex-col lg:flex-row relative">
+    
+    <!-- Lado Izquierdo: Sidebar de Resumen (Sticky on Desktop) -->
+    <div class="w-full lg:w-[35%] bg-secondary p-8 md:p-12 lg:p-16 border-r border-main/10 flex flex-col justify-between relative z-20">
+        <div>
+            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-accent-luxury mb-6 block">
+                Plataforma Clínica
+            </span>
+            <h3 class="font-serif text-[32px] md:text-[40px] leading-[1.1] tracking-tight text-main mb-8">
+                El primer paso hacia tu <i class="text-accent-luxury">bienestar.</i>
+            </h3>
+
+            <!-- Resumen Animado -->
+            <div id="booking-summary" class="flex flex-col gap-6 mt-12 pt-8 border-t border-main/10 opacity-30 transition-opacity duration-500">
+                <div class="flex flex-col gap-2 relative">
+                    <span class="text-[10px] uppercase tracking-widest text-main/50 font-bold">Tratamiento</span>
+                    <span id="summary-service" class="font-serif text-[20px] md:text-[24px] text-main leading-tight tracking-tight transition-all duration-300">Selecciona un servicio</span>
+                </div>
+                <div class="flex flex-col gap-2 relative">
+                    <span class="text-[10px] uppercase tracking-widest text-main/50 font-bold">Fecha de Reserva</span>
+                    <span id="summary-datetime" class="font-serif text-[20px] md:text-[24px] text-main leading-tight tracking-tight transition-all duration-300">--</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-16 hidden lg:block">
+            <p class="text-[10px] text-main/40 uppercase tracking-widest leading-relaxed">
+                NR Balance © 2026<br />Paseo de la Castellana 8, Madrid
+            </p>
+        </div>
+    </div>
+
+    <!-- Lado Derecho: Contenedor Fluido de Pasos (Fluid Stepper) -->
+    <div class="w-full lg:w-[65%] p-6 md:p-12 lg:p-16 relative bg-base">
+        <!-- El wrapper asume una altura dinámica basada en su hijo activo mediante CSS Grid -->
+        <div class="step-wrapper relative w-full items-start grid">
+            
+            <!-- STEP 1: Selección de Servicio -->
+            <div id="step-1" class="booking-step active">
+                <div class="flex items-center gap-3 mb-8 md:mb-12 border-b border-main/10 pb-6">
+                    <span class="w-6 h-6 rounded-full bg-main text-base flex items-center justify-center text-[10px] font-bold">1</span>
+                    <h4 class="font-sans text-[14px] uppercase tracking-[0.2em] text-main/80 font-bold">
+                        Elige tu tratamiento
+                    </h4>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-12">
+                    {services.map((srv) => (
+                        <button
+                            class="service-option group relative flex flex-col items-start text-left p-6 md:p-8 rounded-[24px] border border-main/10 hover:border-accent-luxury hover:bg-[#FFFFFF] hover:shadow-xl transition-all duration-500 custom-cursor-hover bg-main/[0.02]"
+                            data-id={srv.id}
+                            data-name={srv.name}
+                            data-duration={srv.duration}
+                        >
+                            <span class="text-[10px] font-mono tracking-widest text-accent-luxury mb-4 uppercase">
+                                {srv.category}
+                            </span>
+                            <span class="font-serif text-[22px] md:text-[26px] leading-[1.1] text-main mb-2">
+                                {srv.name}
+                            </span>
+                            <span class="text-[12px] text-main/50 font-medium">
+                                {srv.duration} mins — {srv.price}€
+                            </span>
+                            
+                            <!-- Botón Flotante Hover -->
+                            <div class="absolute bottom-6 right-6 w-10 h-10 rounded-full bg-main text-base flex items-center justify-center opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </div>
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            <!-- STEP 2: Calendario y Horas -->
+            <div id="step-2" class="booking-step">
+                <div class="flex items-center gap-4 mb-8 md:mb-12 border-b border-main/10 pb-6">
+                    <button id="back-to-1" class="w-10 h-10 rounded-full border border-main/10 flex items-center justify-center text-main hover:bg-main hover:text-base hover:border-main transition-colors custom-cursor-hover group shrink-0">
+                        <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-main text-base flex items-center justify-center text-[10px] font-bold">2</span>
+                        <h4 class="font-sans text-[14px] uppercase tracking-[0.2em] text-main/80 font-bold">
+                            Fecha Disponibilidad
+                        </h4>
+                    </div>
+                </div>
+
+                <div class="flex flex-col xl:flex-row gap-8 xl:gap-12">
+                    <!-- Calendario UI Premium -->
+                    <div class="w-full xl:w-[60%] flex flex-col">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 id="current-month" class="font-serif text-[28px] md:text-[36px] text-main leading-none">Marzo 2026</h3>
+                            <div class="flex gap-2">
+                                <button id="prev-month" class="w-10 h-10 flex items-center justify-center rounded-full border border-main/10 text-main hover:bg-main/5 transition-colors custom-cursor-hover">
+                                    &larr;
+                                </button>
+                                <button id="next-month" class="w-10 h-10 flex items-center justify-center rounded-full border border-main/10 text-main hover:bg-main/5 transition-colors custom-cursor-hover">
+                                    &rarr;
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-7 gap-2 text-center text-[10px] uppercase tracking-widest font-bold text-main/40 mb-4">
+                            <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                        </div>
+                        
+                        <div id="calendar-grid" class="grid grid-cols-7 gap-2 gap-y-3">
+                            <!-- Inyectado por JS -->
+                        </div>
+                    </div>
+
+                    <!-- Horas (Time Slots) -->
+                    <div class="w-full xl:w-[40%] flex flex-col">
+                        <div class="flex items-center justify-between mb-6 xl:mb-12">
+                            <h3 class="font-serif text-[28px] md:text-[36px] text-main leading-none">Horas</h3>
+                        </div>
+                        <div id="time-slots" class="flex flex-col gap-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                            <div class="flex flex-col items-center justify-center h-48 text-center px-4 border border-dashed border-main/20 rounded-2xl bg-main/[0.01]">
+                                <svg class="w-6 h-6 text-accent-luxury/50 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <p class="font-sans text-[12px] uppercase tracking-widest text-main/50">Elige un día<br>en el calendario.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: Formulario Floating Labels -->
+            <div id="step-3" class="booking-step">
+                <div class="flex items-center gap-4 mb-8 md:mb-12 border-b border-main/10 pb-6">
+                    <button id="back-to-2" class="w-10 h-10 rounded-full border border-main/10 flex items-center justify-center text-main hover:bg-main hover:text-base hover:border-main transition-colors custom-cursor-hover group shrink-0">
+                        <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-main text-base flex items-center justify-center text-[10px] font-bold">3</span>
+                        <h4 class="font-sans text-[14px] uppercase tracking-[0.2em] text-main/80 font-bold">
+                            Confirma tus Datos
+                        </h4>
+                    </div>
+                </div>
+
+                <form id="booking-form" class="flex flex-col max-w-2xl gap-8 pb-12 mx-auto xl:mx-0">
+                    
+                    <div class="floating-input-group relative">
+                        <input type="text" id="fname" required class="peer w-full bg-transparent border-b-2 border-main/10 py-4 text-[20px] md:text-[24px] font-serif text-main focus:outline-none focus:border-accent-luxury focus:ring-0 transition-colors placeholder-transparent" placeholder="Nombre y Apellidos" />
+                        <label for="fname" class="absolute left-0 top-4 text-main/40 text-[20px] md:text-[24px] font-serif transition-all duration-300 peer-placeholder-shown:text-[20px] peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-[12px] peer-focus:font-sans peer-focus:font-bold peer-focus:tracking-widest peer-focus:uppercase peer-focus:text-accent-luxury peer-valid:-top-4 peer-valid:text-[12px] peer-valid:font-sans peer-valid:font-bold peer-valid:tracking-widest peer-valid:uppercase peer-valid:text-main/50 cursor-text">
+                            Nombre y Apellidos *
+                        </label>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="floating-input-group relative">
+                            <input type="email" id="femail" required class="peer w-full bg-transparent border-b-2 border-main/10 py-4 text-[20px] md:text-[24px] font-serif text-main focus:outline-none focus:border-accent-luxury focus:ring-0 transition-colors placeholder-transparent" placeholder="Email" />
+                            <label for="femail" class="absolute left-0 top-4 text-main/40 text-[20px] md:text-[24px] font-serif transition-all duration-300 peer-placeholder-shown:text-[20px] peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-[12px] peer-focus:font-sans peer-focus:font-bold peer-focus:tracking-widest peer-focus:uppercase peer-focus:text-accent-luxury peer-valid:-top-4 peer-valid:text-[12px] peer-valid:font-sans peer-valid:font-bold peer-valid:tracking-widest peer-valid:uppercase peer-valid:text-main/50 cursor-text">
+                                Correo Electrónico *
+                            </label>
+                        </div>
+                        <div class="floating-input-group relative">
+                            <input type="tel" id="fphone" required class="peer w-full bg-transparent border-b-2 border-main/10 py-4 text-[20px] md:text-[24px] font-serif text-main focus:outline-none focus:border-accent-luxury focus:ring-0 transition-colors placeholder-transparent" placeholder="Teléfono" />
+                            <label for="fphone" class="absolute left-0 top-4 text-main/40 text-[20px] md:text-[24px] font-serif transition-all duration-300 peer-placeholder-shown:text-[20px] peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-[12px] peer-focus:font-sans peer-focus:font-bold peer-focus:tracking-widest peer-focus:uppercase peer-focus:text-accent-luxury peer-valid:-top-4 peer-valid:text-[12px] peer-valid:font-sans peer-valid:font-bold peer-valid:tracking-widest peer-valid:uppercase peer-valid:text-main/50 cursor-text">
+                                Teléfono *
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="floating-input-group relative mt-4">
+                        <textarea id="fnotes" class="peer w-full bg-transparent border-b-2 border-main/10 pt-4 pb-2 h-[100px] text-[18px] font-serif text-main focus:outline-none focus:border-accent-luxury focus:ring-0 transition-colors placeholder-transparent resize-none" placeholder="Motivo de consulta"></textarea>
+                        <label for="fnotes" class="absolute left-0 top-3 text-main/40 text-[18px] font-serif transition-all duration-300 peer-placeholder-shown:text-[18px] peer-placeholder-shown:top-3 peer-focus:-top-6 peer-focus:text-[12px] peer-focus:font-sans peer-focus:font-bold peer-focus:tracking-widest peer-focus:uppercase peer-focus:text-accent-luxury peer-valid:-top-6 peer-valid:text-[12px] peer-valid:font-sans peer-valid:font-bold peer-valid:tracking-widest peer-valid:uppercase peer-valid:text-main/50 cursor-text">
+                            Motivos Clínicos / Detalles (Opcional)
+                        </label>
+                    </div>
+
+                    <button type="submit" class="pill-btn pill-btn--primary w-full md:w-auto self-start mt-6 custom-cursor-hover group">
+                        <span class="text-[14px] group-hover:rotate-180 transition-transform duration-500">✳︎</span>
+                        Completar Reserva
+                    </button>
+                    <p class="text-[10px] uppercase tracking-widest text-main/40 mt-2">
+                        Reservando recibirás un SMS de confirmación real.
+                    </p>
+                </form>
+            </div>
+
+            <!-- STEP 4: Éxito -->
+            <div id="step-4" class="booking-step text-center flex-col items-center justify-center py-20">
+                <div class="w-24 h-24 rounded-full bg-accent-luxury/10 border border-accent-luxury/30 text-accent-luxury flex items-center justify-center mx-auto mb-8 shadow-[0_0_40px_rgba(191,160,113,0.3)]">
+                    <svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <span class="font-sans text-[12px] uppercase tracking-[0.3em] font-bold text-accent-luxury mb-4 block">
+                    Cita Registrada
+                </span>
+                <h4 class="font-serif text-[40px] md:text-[60px] text-main leading-none mb-6">
+                    Mesa Preparada.
+                </h4>
+                <p class="font-sans text-[16px] text-main/70 max-w-md mx-auto mb-12">
+                    Tu cita se ha sincronizado correctamente con el calendario clínico. Te llegará un correo de confirmación enseguida.
+                </p>
+                <button id="book-another" class="pill-btn pill-btn--outline mx-auto custom-cursor-hover">
+                    Volver al inicio
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    /* CSS Grid Trick for Fluid Height Transitions
+       All steps share grid area 1/1, only 'active' step is visible and sets the height */
+    .step-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .booking-step {
+        grid-column: 1;
+        grid-row: 1;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(2rem) scale(0.98);
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .booking-step.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0) scale(1);
+        z-index: 10;
+        position: relative;
+    }
+
+    /* Premium Custom Scrollbar para horas */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(44, 48, 43, 0.05);
+        border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(191, 160, 113, 0.4);
+        border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(191, 160, 113, 0.8);
+    }
+
+    /* Calendario de Alta Gama */
+    .calendar-day {
+        aspect-ratio: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid transparent;
+        position: relative;
+    }
+    .calendar-day.empty {
+        cursor: default;
+    }
+    
+    .calendar-day:hover:not(.disabled):not(.empty):not(.selected) {
+        background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 100%);
+        border-color: rgba(191,160,113,0.3);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        color: #bfa071;
+        transform: translateY(-2px);
+    }
+
+    .calendar-day.selected {
+        background: #bfa071;
+        color: white;
+        font-weight: bold;
+        box-shadow: 0 8px 20px rgba(191, 160, 113, 0.3);
+        transform: scale(1.05);
+    }
+    
+    .calendar-day.disabled {
+        opacity: 0.2;
+        cursor: not-allowed;
+        text-decoration: line-through;
+    }
+
+    .calendar-day.fake-booked::after {
+        content: "";
+        position: absolute;
+        bottom: 8px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: #d45700;
+        opacity: 0.6;
+    }
+    .calendar-day.selected.fake-booked::after {
+        background-color: white;
+    }
+
+    /* Tiempos de Alta Gama */
+    .time-slot {
+        width: 100%;
+        padding: 16px 20px;
+        text-align: left;
+        border: 1px solid rgba(44, 48, 43, 0.08);
+        border-radius: 16px;
+        font-family: 'Archivo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        color: var(--color-main);
+        transition: all 0.3s;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .time-slot:hover:not(.booked):not(.selected) {
+        border-color: #bfa071;
+        background-color: rgba(191, 160, 113, 0.03);
+        color: #bfa071;
+        transform: translateX(4px);
+    }
+    .time-slot.selected {
+        background: #bfa071;
+        border-color: #bfa071;
+        color: white;
+        box-shadow: 0 10px 25px rgba(191, 160, 113, 0.25);
+    }
+    
+    /* Etiqueta flotante para Time Slots */
+    .time-slot::after {
+        content: 'Seleccionar';
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .time-slot:hover:not(.booked):not(.selected)::after {
+        opacity: 0.5;
+    }
+    .time-slot.selected::after {
+        content: '✓';
+        opacity: 1;
+        font-size: 14px;
+    }
+    
+    .time-slot.booked {
+        opacity: 0.4;
+        background-color: transparent;
+        cursor: not-allowed;
+        border-style: dashed;
+    }
+    .time-slot.booked::after {
+        content: 'OCUPADO';
+        opacity: 0.5;
+        color: #d45700;
+    }
+    
+    /* Floating input logic handled cleanly by tailwind peer classes in HTML */
+</style>
+
+<script>
+    import { gsap } from "gsap";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const steps = [
+            document.getElementById("step-1"),
+            document.getElementById("step-2"),
+            document.getElementById("step-3"),
+            document.getElementById("step-4"),
+        ];
+
+        const summaryPanel = document.getElementById("booking-summary");
+        const summaryService = document.getElementById("summary-service");
+        const summaryDatetime = document.getElementById("summary-datetime");
+
+        let currentStep = 0;
+        interface BookingData {
+            serviceId: string | null;
+            serviceName: string | null;
+            duration: string | null;
+            date: string | null;
+            time: string | null;
+            slotStart?: string;
+            slotEnd?: string;
+            clientName?: string;
+            clientEmail?: string;
+            clientPhone?: string;
+            notes?: string;
+        }
+
+        let bookingData: BookingData = {
+            serviceId: null,
+            serviceName: null,
+            duration: null,
+            date: null,
+            time: null,
+        };
+
+        function animateTextChange(element: HTMLElement | null, newText: string) {
+            if (!element) return;
+            gsap.to(element, {
+                opacity: 0,
+                y: -10,
+                duration: 0.2,
+                onComplete: () => {
+                    element.innerHTML = newText;
+                    gsap.to(element, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.7)" });
+                }
+            });
+        }
+
+        function goToStep(index: number) {
+            // Fluid Height Transition using CSS class toggling
+            steps.forEach((step, i) => {
+                if (!step) return;
+                if (i === index) {
+                    step.classList.add("active");
+                } else {
+                    step.classList.remove("active");
+                }
+            });
+            
+            // Re-trigger cursor setup for dynamically shown buttons
+            if (window.customCursorHoverReflect) window.customCursorHoverReflect();
+
+            currentStep = index;
+
+            // Summary Panel Sticky Updates
+            if (index > 0 && index < 3) {
+                if (summaryPanel) summaryPanel.style.opacity = "1";
+                
+                if (summaryService && summaryService.textContent !== bookingData.serviceName) {
+                    animateTextChange(summaryService, bookingData.serviceName || "--");
+                }
+                
+                if (summaryDatetime) {
+                    const dateStr = bookingData.date
+                        ? new Date(bookingData.date).toLocaleDateString("es-ES", { day: "numeric", month: "long" })
+                        : "-- / --";
+                    const timeStr = bookingData.time || "--:--";
+                    const mergedText = `${dateStr} <br><span class="text-[16px] text-main/50 font-sans tracking-widest uppercase">a las</span> ${timeStr}`;
+                    
+                    // Simple distinct content check ignoring HTML markup differences roughly
+                    if (!summaryDatetime.innerHTML.includes(timeStr) || !summaryDatetime.innerHTML.includes(dateStr.split(' ')[0])) {
+                         animateTextChange(summaryDatetime, mergedText);
+                    }
+                }
+            } else if (index === 0) {
+                if (summaryPanel) summaryPanel.style.opacity = "0.3";
+                if (summaryService) summaryService.innerHTML = "Selecciona un servicio";
+                if (summaryDatetime) summaryDatetime.innerHTML = "--";
+            }
+        }
+
+        // --- Step 1 Interactions ---
+        const serviceBtns = document.querySelectorAll(".service-option");
+        serviceBtns.forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                const target = e.currentTarget as HTMLElement;
+                bookingData.serviceId = target.dataset.id || null;
+                bookingData.serviceName = target.dataset.name || null;
+                bookingData.duration = target.dataset.duration || null;
+                bookingData.date = null; 
+                bookingData.time = null;
+                renderCalendar(); 
+                goToStep(1);
+            });
+        });
+
+        // --- Step 2 Interactions ---
+        const backTo1 = document.getElementById("back-to-1");
+        if (backTo1) backTo1.addEventListener("click", () => goToStep(0));
+
+        let currentDate = new Date();
+        const calendarGrid = document.getElementById("calendar-grid");
+        const currentMonthLabel = document.getElementById("current-month");
+        const timeSlotsContainer = document.getElementById("time-slots");
+        
+        function emptyStateTimeSlots() {
+             if (timeSlotsContainer) timeSlotsContainer.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-48 text-center px-4 border border-dashed border-main/20 rounded-[20px] bg-main/[0.01]">
+                    <svg class="w-6 h-6 text-accent-luxury/50 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <p class="font-sans text-[12px] uppercase tracking-widest text-main/50">Elige un día<br>en el calendario.</p>
+                </div>`;
+        }
+
+        function renderCalendar() {
+            if (!calendarGrid || !currentMonthLabel) return;
+
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            currentMonthLabel.textContent = new Date(year, month).toLocaleString("es-ES", { month: "long", year: "numeric" });
+            calendarGrid.innerHTML = "";
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            let prevBlanks = firstDay === 0 ? 6 : firstDay - 1;
+
+            for (let i = 0; i < prevBlanks; i++) {
+                const blank = document.createElement("div");
+                blank.className = "calendar-day empty";
+                calendarGrid.appendChild(blank);
+            }
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            for (let i = 1; i <= daysInMonth; i++) {
+                const cellDate = new Date(year, month, i);
+                const cell = document.createElement("div");
+                cell.className = "calendar-day font-serif custom-cursor-hover";
+                cell.textContent = i.toString();
+
+                if (cellDate < today) {
+                    cell.classList.add("disabled");
+                    cell.classList.remove("custom-cursor-hover");
+                } else {
+                    const isBusyDay = Math.random() > 0.5;
+                    if (isBusyDay) cell.classList.add("fake-booked");
+
+                    cell.addEventListener("click", () => {
+                        const previousSelected = calendarGrid.querySelector(".calendar-day.selected");
+                        if (previousSelected) previousSelected.classList.remove("selected");
+                        
+                        cell.classList.add("selected");
+                        // Micro-animación de pulso Gsap
+                        gsap.fromTo(cell, { scale: 0.9 }, { scale: 1.05, duration: 0.4, ease: "back.out(2)" });
+                        
+                        bookingData.date = cellDate.toISOString();
+                        bookingData.time = null; 
+
+                        // Update summary partially
+                        if (summaryDatetime) {
+                            const dateStr = new Date(bookingData.date).toLocaleDateString("es-ES", { day: "numeric", month: "long" });
+                            animateTextChange(summaryDatetime, `${dateStr} <br><span class="text-[16px] text-main/50 font-sans tracking-widest uppercase">a las</span> --:--`);
+                        }
+
+                        renderTimeSlots(cellDate);
+                    });
+                }
+                calendarGrid.appendChild(cell);
+            }
+            if (window.customCursorHoverReflect) window.customCursorHoverReflect();
+        }
+
+        document.getElementById("prev-month")?.addEventListener("click", () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+            emptyStateTimeSlots();
+        });
+        document.getElementById("next-month")?.addEventListener("click", () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+            emptyStateTimeSlots();
+        });
+
+        async function renderTimeSlots(date: Date) {
+            if (!timeSlotsContainer) return;
+            
+            timeSlotsContainer.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-48">
+                    <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-accent-luxury mb-4"></div>
+                    <p class="font-sans text-[12px] uppercase tracking-widest text-main/50">Sincronizando...</p>
+                </div>`;
+
+            const dateStr = date.toISOString().split("T")[0];
+            const serviceId = bookingData.serviceId || "deep-tissue";
+
+            try {
+                const res = await fetch(`/api/availability?date=${dateStr}&service=${serviceId}`);
+                const data = await res.json();
+                timeSlotsContainer.innerHTML = "";
+
+                if (!data.slots || data.slots.length === 0) {
+                     timeSlotsContainer.innerHTML = `
+                        <div class="flex flex-col items-center justify-center h-48 px-4 text-center">
+                            <span class="text-[30px] mb-2">🗓️</span>
+                            <p class="font-sans text-[12px] uppercase tracking-widest text-main/50">Agenda Completa</p>
+                        </div>`;
+                    return;
+                }
+
+                data.slots.forEach((slot: { start: string; end: string; display: string }, index: number) => {
+                    const btn = document.createElement("button");
+                    btn.className = "time-slot custom-cursor-hover";
+                    // Avoid full display to allow flex layout correctly
+                    btn.innerHTML = `<span>${slot.display}</span>`;
+
+                    // Simple GSAP stagger entrance
+                    gsap.fromTo(btn, { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.4, delay: index * 0.05, ease: "power2.out" });
+
+                    btn.addEventListener("click", () => {
+                        document.querySelectorAll(".time-slot").forEach((t) => t.classList.remove("selected"));
+                        btn.classList.add("selected");
+                        bookingData.time = slot.display;
+                        bookingData.slotStart = slot.start;
+                        bookingData.slotEnd = slot.end;
+
+                        setTimeout(() => goToStep(2), 400); // Pequeño delay para disfrutar del click
+                    });
+
+                    timeSlotsContainer.appendChild(btn);
+                });
+                
+                if (window.customCursorHoverReflect) window.customCursorHoverReflect();
+            } catch (error) {
+                console.error("Availability error:", error);
+                timeSlotsContainer.innerHTML = `<p class="text-[12px] uppercase text-red-500/80 p-4 text-center">Error de conexión.</p>`;
+            }
+        }
+
+        renderCalendar();
+
+        // --- Step 3 Interactions ---
+        const backTo2 = document.getElementById("back-to-2");
+        if (backTo2) backTo2.addEventListener("click", () => goToStep(1));
+
+        const form = document.getElementById("booking-form");
+        if (form) {
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                
+                bookingData.clientName = (document.getElementById("fname") as HTMLInputElement).value;
+                bookingData.clientEmail = (document.getElementById("femail") as HTMLInputElement).value;
+                bookingData.clientPhone = (document.getElementById("fphone") as HTMLInputElement).value;
+                bookingData.notes = (document.getElementById("fnotes") as HTMLTextAreaElement).value;
+
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalContent = submitBtn ? submitBtn.innerHTML : "";
+                
+                if (submitBtn) {
+                     submitBtn.innerHTML = `
+                        <div class="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-base"></div>
+                        <span>Generando Reserva...</span>
+                     `;
+                     submitBtn.classList.add("opacity-80", "pointer-events-none");
+                }
+
+                try {
+                    const payload = {
+                        clientName: bookingData.clientName,
+                        clientEmail: bookingData.clientEmail,
+                        clientPhone: bookingData.clientPhone,
+                        serviceId: bookingData.serviceId,
+                        serviceName: bookingData.serviceName,
+                        start: bookingData.slotStart,
+                        end: bookingData.slotEnd,
+                    };
+                    const response = await fetch("/api/book", {
+                        method: "POST",
+                        body: JSON.stringify(payload),
+                        headers: { "Content-Type": "application/json" },
+                    });
+
+                    const result = await response.json();
+                    if (response.ok && result.success) {
+                        goToStep(3);
+                    } else if (response.status === 409) {
+                        alert("⚠️ Horario ya reservado mientras gestionabas tus datos. Por favor, elige otro.");
+                        if (submitBtn) {
+                            submitBtn.innerHTML = originalContent;
+                            submitBtn.classList.remove("opacity-80", "pointer-events-none");
+                        }
+                        goToStep(1); 
+                    } else {
+                        alert(result.error || "Hubo un problema procesando la petición.");
+                        if (submitBtn) {
+                            submitBtn.innerHTML = originalContent;
+                            submitBtn.classList.remove("opacity-80", "pointer-events-none");
+                        }
+                    }
+                } catch (error) {
+                    console.error("Booking error:", error);
+                    alert("Error servidor interno.");
+                    if (submitBtn) {
+                        submitBtn.innerHTML = originalContent;
+                        submitBtn.classList.remove("opacity-80", "pointer-events-none");
+                    }
+                }
+            });
+        }
+
+        // --- Step 4 Interactions ---
+        const backStart = document.getElementById("book-another");
+        if (backStart) {
+            backStart.addEventListener("click", () => {
+                (form as HTMLFormElement)?.reset();
+                bookingData = { serviceId: null, serviceName: null, duration: null, date: null, time: null };
+                emptyStateTimeSlots();
+                
+                const selectedDay = calendarGrid?.querySelector('.calendar-day.selected');
+                if(selectedDay) selectedDay.classList.remove('selected');
+                
+                goToStep(0);
+            });
+        }
+    });
+
+    // Helper para regenerar custom cursor listerners en main layout if exists
+    declare global {
+        interface Window { customCursorHoverReflect?: () => void; }
+    }
+    window.customCursorHoverReflect = function() {
+        const cursor = document.getElementById("custom-cursor");
+        if(cursor) {
+             document.querySelectorAll("a, button, input, select, textarea, .custom-cursor-hover").forEach((el) => {
+                 el.removeEventListener("mouseenter", () => cursor.classList.add("hovering"));
+                 el.removeEventListener("mouseleave", () => cursor.classList.remove("hovering"));
+                 el.addEventListener("mouseenter", () => cursor.classList.add("hovering"));
+                 el.addEventListener("mouseleave", () => cursor.classList.remove("hovering"));
+             });
+        }
+    }
+</script>

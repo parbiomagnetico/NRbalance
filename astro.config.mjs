@@ -9,26 +9,28 @@ export default defineConfig({
   adapter: cloudflare(),
   vite: {
     plugins: [tailwindcss()],
-    build: {
-      rollupOptions: {
-        external: [
-          'node:buffer',
-          'node:crypto',
-          'node:events',
-          'node:fs',
-          'node:http',
-          'node:https',
-          'node:net',
-          'node:os',
-          'node:path',
-          'node:process',
-          'node:stream',
-          'node:url',
-          'node:util',
-          'node:zlib',
-          'node:stream/web'
-        ]
-      }
+    ssr: {
+      external: [
+        'node:buffer',
+        'node:crypto',
+        'node:events',
+        'node:fs',
+        'node:http',
+        'node:https',
+        'node:net',
+        'node:os',
+        'node:path',
+        'node:process',
+        'node:stream',
+        'node:url',
+        'node:util',
+        'node:zlib',
+        'node:stream/web',
+        'child_process',
+        'assert',
+        'tls',
+        'worker_threads'
+      ]
     }
   }
 });

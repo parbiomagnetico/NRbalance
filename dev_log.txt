@@ -1,0 +1,14 @@
+
+> nr-balance@0.0.1 dev
+> astro dev
+
+18:09:54 [ERROR] [astro:db] An unhandled error occurred while running the "astro:config:done" hook
+The requested module '@astrojs/db' does not provide an export named 'column'
+  Location:
+    C:\Users\facto\Desktop\NRBalance\nr-balance\node_modules\@astrojs\db\dist\core\load-file.js:154:12
+  Stack trace:
+    at #asyncInstantiate (node:internal/modules/esm/module_job:302:21)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:660:26)
+    at async loadAndBundleDbConfigFile (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/node_modules/@astrojs/db/dist/core/load-file.js:95:10)
+    at async resolveDbConfig (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/node_modules/@astrojs/db/dist/core/load-file.js:17:33)
+    at async withTakingALongTimeMsg (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/node_modules/astro/dist/integrations/hooks.js:32:12)

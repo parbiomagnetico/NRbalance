@@ -1,0 +1,109 @@
+2026-03-02T17:11:28.925Z astro:cli --verbose flag enabled! Enabling: DEBUG="astro:*,vite:*"
+2026-03-02T17:11:28.925Z astro:cli Tip: Set the DEBUG env variable directly for more control. Example: "DEBUG=astro:*,vite:* astro build".
+2026-03-02T17:11:29.743Z astro:telemetry [notify] last notified on 1769182871054
+2026-03-02T17:11:31.576Z astro:telemetry {
+  context: {
+    isGit: true,
+    anonymousProjectId: 'dd42970bd5bbf79a85297a1c5bbf294ded19c5550a3c6f08b87502721734bab5',
+    packageManager: 'npm',
+    packageManagerVersion: '11.6.2',
+    anonymousId: 'e2936883549d0caebe19ebb0720c59af9c51c454f10fa309e293867f9bd5f564',
+    anonymousSessionId: 'fb954fabb04aad47951f752368c4377a909a632cf950fc5b9ffb88e5eea9821f'
+  },
+  meta: {
+    nodeVersion: '24.12.0',
+    viteVersion: '6.4.1',
+    astroVersion: '5.18.0',
+    systemPlatform: 'win32',
+    systemRelease: '10.0.26200',
+    systemArchitecture: 'x64',
+    cpuCount: 8,
+    cpuModel: 'AMD Ryzen 7 4700U with Radeon Graphics         ',
+    cpuSpeed: 1996,
+    memoryInMb: 15790,
+    isDocker: false,
+    isTTY: undefined,
+    isWSL: false,
+    isCI: false,
+    ciName: null
+  }
+}
+2026-03-02T17:11:31.576Z astro:telemetry [
+  {
+    "eventName": "ASTRO_CLI_SESSION_STARTED",
+    "payload": {
+      "cliCommand": "dev",
+      "config": {
+        "integrations": [
+          "astro:db",
+          "@astrojs/db/file-url"
+        ],
+        "build": {},
+        "server": true,
+        "image": {},
+        "markdown": {},
+        "vite": {
+          "plugins": true
+        },
+        "experimental": {},
+        "legacy": {}
+      }
+    }
+  }
+]
+2026-03-02T17:11:31.600Z vite:env loading env files: [
+  'C:/Users/facto/Desktop/NRBalance/nr-balance/.env',
+  'C:/Users/facto/Desktop/NRBalance/nr-balance/.env.local',
+  'C:/Users/facto/Desktop/NRBalance/nr-balance/.env.',
+  'C:/Users/facto/Desktop/NRBalance/nr-balance/.env..local'
+]
+2026-03-02T17:11:31.600Z vite:env env files loaded in 0.58ms
+2026-03-02T17:11:31.601Z vite:env using resolved env: {}
+18:11:31 [ERROR] [astro:db] An unhandled error occurred while running the "astro:config:done" hook
+2026-03-02T17:11:31.642Z astro:telemetry {
+  context: {
+    isGit: true,
+    anonymousProjectId: 'dd42970bd5bbf79a85297a1c5bbf294ded19c5550a3c6f08b87502721734bab5',
+    packageManager: 'npm',
+    packageManagerVersion: '11.6.2',
+    anonymousId: 'e2936883549d0caebe19ebb0720c59af9c51c454f10fa309e293867f9bd5f564',
+    anonymousSessionId: 'fb954fabb04aad47951f752368c4377a909a632cf950fc5b9ffb88e5eea9821f'
+  },
+  meta: {
+    nodeVersion: '24.12.0',
+    viteVersion: '6.4.1',
+    astroVersion: '5.18.0',
+    systemPlatform: 'win32',
+    systemRelease: '10.0.26200',
+    systemArchitecture: 'x64',
+    cpuCount: 8,
+    cpuModel: 'AMD Ryzen 7 4700U with Radeon Graphics         ',
+    cpuSpeed: 1996,
+    memoryInMb: 15790,
+    isDocker: false,
+    isTTY: undefined,
+    isWSL: false,
+    isCI: false,
+    ciName: null
+  }
+}
+2026-03-02T17:11:31.642Z astro:telemetry [
+  {
+    "eventName": "ASTRO_CLI_ERROR",
+    "payload": {
+      "name": "SyntaxError",
+      "cliCommand": "dev",
+      "isFatal": true,
+      "anonymousMessageHint": "The requested module"
+    }
+  }
+]
+The requested module '@astrojs/db' does not provide an export named 'column'
+  Location:
+    C:\Users\facto\Desktop\NRBalance\nr-balance\node_modules\@astrojs\db\dist\core\load-file.js:154:12
+  Stack trace:
+    at #asyncInstantiate (node:internal/modules/esm/module_job:302:21)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:660:26)
+    at async loadAndBundleDbConfigFile (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/node_modules/@astrojs/db/dist/core/load-file.js:95:10)
+    at async resolveDbConfig (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/node_modules/@astrojs/db/dist/core/load-file.js:17:33)
+    at async withTakingALongTimeMsg (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/node_modules/astro/dist/integrations/hooks.js:32:12)

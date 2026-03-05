@@ -636,33 +636,28 @@ const services = [
             timeSlotsContainer.innerHTML = `
                 <div class="flex flex-col items-center justify-center h-48">
                     <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-accent-luxury mb-4"></div>
-                    <p class="font-sans text-[12px] uppercase tracking-widest text-main/50">Sincronizando...</p>
+                    <p class="font-sans text-[12px] uppercase tracking-widest text-main/50">Calculando disponibilidad...</p>
                 </div>`;
 
-            const dateStr = date.toISOString().split("T")[0];
-            const serviceId = bookingData.serviceId || "deep-tissue";
-
-            try {
-                const res = await fetch(`/api/availability?date=${dateStr}&service=${serviceId}`);
-                const data = await res.json();
+            // Simulamos un pequeño retraso para mantener la sensación de "Premium App"
+            setTimeout(() => {
                 timeSlotsContainer.innerHTML = "";
+                
+                // Generar slots fijos para modo estático
+                const mockSlots = [
+                    { start: "09:00", display: "09:00 AM" },
+                    { start: "10:30", display: "10:30 AM" },
+                    { start: "12:00", display: "12:00 PM" },
+                    { start: "16:00", display: "04:00 PM" },
+                    { start: "17:30", display: "05:30 PM" },
+                    { start: "19:00", display: "07:00 PM" },
+                ];
 
-                if (!data.slots || data.slots.length === 0) {
-                     timeSlotsContainer.innerHTML = `
-                        <div class="flex flex-col items-center justify-center h-48 px-4 text-center">
-                            <span class="text-[30px] mb-2">🗓️</span>
-                            <p class="font-sans text-[12px] uppercase tracking-widest text-main/50">Agenda Completa</p>
-                        </div>`;
-                    return;
-                }
-
-                data.slots.forEach((slot: { start: string; end: string; display: string }, index: number) => {
+                mockSlots.forEach((slot, index) => {
                     const btn = document.createElement("button");
                     btn.className = "time-slot custom-cursor-hover";
-                    // Avoid full display to allow flex layout correctly
                     btn.innerHTML = `<span>${slot.display}</span>`;
 
-                    // Simple GSAP stagger entrance
                     gsap.fromTo(btn, { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.4, delay: index * 0.05, ease: "power2.out" });
 
                     btn.addEventListener("click", () => {
@@ -670,19 +665,15 @@ const services = [
                         btn.classList.add("selected");
                         bookingData.time = slot.display;
                         bookingData.slotStart = slot.start;
-                        bookingData.slotEnd = slot.end;
 
-                        setTimeout(() => goToStep(2), 400); // Pequeño delay para disfrutar del click
+                        setTimeout(() => goToStep(2), 400);
                     });
 
                     timeSlotsContainer.appendChild(btn);
                 });
                 
                 if (window.customCursorHoverReflect) window.customCursorHoverReflect();
-            } catch (error) {
-                console.error("Availability error:", error);
-                timeSlotsContainer.innerHTML = `<p class="text-[12px] uppercase text-red-500/80 p-4 text-center">Error de conexión.</p>`;
-            }
+            }, 600);
         }
 
         renderCalendar();
@@ -693,66 +684,28 @@ const services = [
 
         const form = document.getElementById("booking-form");
         if (form) {
-            form.addEventListener("submit", async (e) => {
+            form.addEventListener("submit", (e) => {
                 e.preventDefault();
                 
                 bookingData.clientName = (document.getElementById("fname") as HTMLInputElement).value;
                 bookingData.clientEmail = (document.getElementById("femail") as HTMLInputElement).value;
                 bookingData.clientPhone = (document.getElementById("fphone") as HTMLInputElement).value;
-                bookingData.notes = (document.getElementById("fnotes") as HTMLTextAreaElement).value;
 
                 const submitBtn = form.querySelector('button[type="submit"]');
-                const originalContent = submitBtn ? submitBtn.innerHTML : "";
                 
                 if (submitBtn) {
                      submitBtn.innerHTML = `
                         <div class="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-base"></div>
-                        <span>Generando Reserva...</span>
+                        <span>Procesando...</span>
                      `;
                      submitBtn.classList.add("opacity-80", "pointer-events-none");
                 }
 
-                try {
-                    const payload = {
-                        clientName: bookingData.clientName,
-                        clientEmail: bookingData.clientEmail,
-                        clientPhone: bookingData.clientPhone,
-                        serviceId: bookingData.serviceId,
-                        serviceName: bookingData.serviceName,
-                        start: bookingData.slotStart,
-                        end: bookingData.slotEnd,
-                    };
-                    const response = await fetch("/api/book", {
-                        method: "POST",
-                        body: JSON.stringify(payload),
-                        headers: { "Content-Type": "application/json" },
-                    });
-
-                    const result = await response.json();
-                    if (response.ok && result.success) {
-                        goToStep(3);
-                    } else if (response.status === 409) {
-                        alert("⚠️ Horario ya reservado mientras gestionabas tus datos. Por favor, elige otro.");
-                        if (submitBtn) {
-                            submitBtn.innerHTML = originalContent;
-                            submitBtn.classList.remove("opacity-80", "pointer-events-none");
-                        }
-                        goToStep(1); 
-                    } else {
-                        alert(result.error || "Hubo un problema procesando la petición.");
-                        if (submitBtn) {
-                            submitBtn.innerHTML = originalContent;
-                            submitBtn.classList.remove("opacity-80", "pointer-events-none");
-                        }
-                    }
-                } catch (error) {
-                    console.error("Booking error:", error);
-                    alert("Error servidor interno.");
-                    if (submitBtn) {
-                        submitBtn.innerHTML = originalContent;
-                        submitBtn.classList.remove("opacity-80", "pointer-events-none");
-                    }
-                }
+                // En modo estático, simplemente mostramos éxito tras una breve pausa decorativa
+                // El usuario procesará los datos manualmente o mediante un servicio externo de formularios en el futuro
+                setTimeout(() => {
+                    goToStep(3);
+                }, 1500);
             });
         }
 

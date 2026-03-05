@@ -126,6 +126,11 @@
         background-color 0.3s ease,
         opacity 0.3s ease;
     mix-blend-mode: difference;
+    opacity: 0;
+    /* Hidden by default */
+}
+
+.custom-cursor.visible {
     opacity: 0.6;
 }
 
@@ -135,6 +140,14 @@
     background-color: var(--color-base);
     opacity: 1;
     mix-blend-mode: difference;
+}
+
+/* Solo mostramos el cursor personalizado en dispositivos con puntero fino (Desktop) */
+@media (max-width: 1024px),
+(pointer: coarse) {
+    .custom-cursor {
+        display: none !important;
+    }
 }
 
 /* ── Grain Overlay ── */

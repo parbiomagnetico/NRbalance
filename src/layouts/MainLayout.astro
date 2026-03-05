@@ -64,41 +64,98 @@ const { title, hideNav = false, hideFooter = false } = Astro.props;
         }
 
         <script>
+            import { gsap } from "gsap";
+
             document.addEventListener("DOMContentLoaded", () => {
                 const cursor = document.getElementById("custom-cursor");
-                if (cursor) {
-                    document.addEventListener("mousemove", (e) => {
-                        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-                    });
-                    const setup = () => {
-                        document
-                            .querySelectorAll(
-                                "a, button, input, select, textarea, .custom-cursor-hover, .review-card",
-                            )
-                            .forEach((el) => {
-                                el.addEventListener("mouseenter", () =>
-                                    cursor.classList.add("hovering"),
-                                );
-                                el.addEventListener("mouseleave", () =>
-                                    cursor.classList.remove("hovering"),
-                                );
-                            });
-                    };
-                    setup();
-                    document.addEventListener("astro:page-load", setup);
+                if (!cursor) return;
+
+                // 1. Detección de Mobile/Touch temprana
+                const isTouchDevice =
+                    "ontouchstart" in window || navigator.maxTouchPoints > 0;
+                if (isTouchDevice || window.innerWidth <= 1024) {
+                    cursor.style.display = "none";
+                    return;
                 }
 
+                // 2. GSAP QuickSetter para máximo rendimiento (AAA feel)
+                const xSetter = gsap.quickSetter(cursor, "x", "px");
+                const ySetter = gsap.quickSetter(cursor, "y", "px");
+
+                let isVisible = false;
+
+                const onMouseMove = (e: MouseEvent) => {
+                    if (!isVisible) {
+                        cursor.classList.add("visible");
+                        isVisible = true;
+                    }
+                    // Suavizado sutil mediante GSAP (puedes ajustar el duration si quieres más/menos lag)
+                    gsap.to(
+                        {},
+                        {
+                            duration: 0,
+                            onUpdate: () => {
+                                xSetter(e.clientX);
+                                ySetter(e.clientY);
+                            },
+                        },
+                    );
+                };
+
+                window.addEventListener("mousemove", onMouseMove);
+
+                // 3. Manejo de salida/entrada de ventana (Evita el punto "pegado")
+                document.addEventListener("mouseleave", () => {
+                    cursor.classList.remove("visible");
+                    isVisible = false;
+                });
+
+                document.addEventListener("mouseenter", () => {
+                    // Esperamos al primer mousemove para re-activar
+                });
+
+                // 4. Setup de Hovers (delegación o reactivo a cambios de página)
+                const setupHovers = () => {
+                    const hoverElements = document.querySelectorAll(
+                        "a, button, input, select, textarea, .custom-cursor-hover, .service-option, .time-slot",
+                    );
+
+                    hoverElements.forEach((el) => {
+                        el.addEventListener("mouseenter", () =>
+                            cursor.classList.add("hovering"),
+                        );
+                        el.addEventListener("mouseleave", () =>
+                            cursor.classList.remove("hovering"),
+                        );
+                    });
+                };
+
+                setupHovers();
+
+                // Compatibilidad con transiciones de Astro (View Transitions)
+                document.addEventListener("astro:page-load", setupHovers);
+
+                // Exportar para componentes dinámicos (como el Booking)
+                (window as any).refreshCustomCursor = setupHovers;
+
+                // 5. Botón Scroll Up
                 const upBtn = document.getElementById("scroll-up-btn");
                 if (upBtn) {
                     window.addEventListener("scroll", () => {
                         if (window.scrollY > 600) {
-                            upBtn.style.opacity = "1";
-                            upBtn.style.transform = "translateY(0)";
-                            upBtn.style.pointerEvents = "auto";
+                            gsap.to(upBtn, {
+                                opacity: 1,
+                                y: 0,
+                                pointerEvents: "auto",
+                                duration: 0.4,
+                            });
                         } else {
-                            upBtn.style.opacity = "0";
-                            upBtn.style.transform = "translateY(1rem)";
-                            upBtn.style.pointerEvents = "none";
+                            gsap.to(upBtn, {
+                                opacity: 0,
+                                y: 20,
+                                pointerEvents: "none",
+                                duration: 0.4,
+                            });
                         }
                     });
                     upBtn.addEventListener("click", () =>

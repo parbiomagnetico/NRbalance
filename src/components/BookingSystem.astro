@@ -494,7 +494,7 @@ const services = [
             });
             
             // Re-trigger cursor setup for dynamically shown buttons
-            if (window.customCursorHoverReflect) window.customCursorHoverReflect();
+            if ((window as any).refreshCustomCursor) (window as any).refreshCustomCursor();
 
             currentStep = index;
 
@@ -616,7 +616,7 @@ const services = [
                 }
                 calendarGrid.appendChild(cell);
             }
-            if (window.customCursorHoverReflect) window.customCursorHoverReflect();
+            if ((window as any).refreshCustomCursor) (window as any).refreshCustomCursor();
         }
 
         document.getElementById("prev-month")?.addEventListener("click", () => {
@@ -672,7 +672,7 @@ const services = [
                     timeSlotsContainer.appendChild(btn);
                 });
                 
-                if (window.customCursorHoverReflect) window.customCursorHoverReflect();
+                if ((window as any).refreshCustomCursor) (window as any).refreshCustomCursor();
             }, 600);
         }
 
@@ -724,20 +724,4 @@ const services = [
             });
         }
     });
-
-    // Helper para regenerar custom cursor listerners en main layout if exists
-    declare global {
-        interface Window { customCursorHoverReflect?: () => void; }
-    }
-    window.customCursorHoverReflect = function() {
-        const cursor = document.getElementById("custom-cursor");
-        if(cursor) {
-             document.querySelectorAll("a, button, input, select, textarea, .custom-cursor-hover").forEach((el) => {
-                 el.removeEventListener("mouseenter", () => cursor.classList.add("hovering"));
-                 el.removeEventListener("mouseleave", () => cursor.classList.remove("hovering"));
-                 el.addEventListener("mouseenter", () => cursor.classList.add("hovering"));
-                 el.addEventListener("mouseleave", () => cursor.classList.remove("hovering"));
-             });
-        }
-    }
 </script>

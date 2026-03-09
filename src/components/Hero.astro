@@ -58,7 +58,7 @@
 <script>
     import { gsap } from "gsap";
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         // Initial states
         gsap.set(".hero-word", { opacity: 0 });
         gsap.set(".hero-amp", { y: 30, opacity: 0 });

@@ -17,95 +17,198 @@ const { title, category, subtitle, description, duration, benefits, image } =
     Astro.props;
 ---
 
-<MainLayout title={`${title} | NR Balance`}>
+<MainLayout
+    title={`${title} | NR Balance`}
+    description={description}
+    image={image}
+>
     <Navigation />
 
-    <!-- Hero Section -->
+    <!-- HERO SECTION (Awwwards Style) -->
     <section
-        class="relative pt-32 pb-20 md:pt-48 md:pb-32 bg-base min-h-[70vh] flex items-center"
+        class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-main"
     >
-        <div
-            class="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center gap-12"
-        >
-            <div class="w-full md:w-1/2 flex flex-col items-start z-10">
-                <span
-                    class="text-[12px] font-bold tracking-[0.2em] uppercase text-accent-luxury mb-6 block"
-                >
-                    {category}
-                </span>
+        <!-- Parallax Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img
+                src={image}
+                alt={title}
+                class="service-hero-img w-full h-full object-cover opacity-60 mix-blend-overlay"
+                style="transform: scale(1.1);"
+            />
+            <div class="absolute inset-0 bg-main/40"></div>
+            <div
+                class="absolute inset-0 bg-gradient-to-t from-main via-main/20 to-transparent"
+            >
+            </div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-6 max-w-5xl translate-y-12">
+            <span
+                class="service-hero-category block text-[12px] font-bold tracking-[0.3em] uppercase text-accent-luxury mb-6 opacity-0 translate-y-6"
+            >
+                {category}
+            </span>
+            <div class="overflow-hidden">
                 <h1
-                    class="font-serif text-[40px] md:text-[60px] leading-[1.1] tracking-tight text-main mb-6"
+                    class="service-hero-title font-serif text-[50px] md:text-[80px] lg:text-[100px] leading-[1] tracking-tight text-base mb-8 opacity-0 translate-y-full"
                 >
                     {title}
                 </h1>
-                <p
-                    class="font-sans text-[18px] md:text-[20px] text-main/70 leading-relaxed max-w-lg mb-10"
-                >
-                    {subtitle}
-                </p>
-                <div class="flex items-center gap-4">
-                    <a href="#booking" class="pill-btn pill-btn--primary">
-                        <span class="text-[14px]">✳︎</span>
-                        Reservar Sesión
-                    </a>
-                    <span
-                        class="text-[12px] font-mono tracking-widest text-main/50 uppercase border border-main/10 rounded-full px-4 py-2"
-                    >
-                        {duration}
-                    </span>
-                </div>
             </div>
-            <div
-                class="w-full md:w-1/2 relative h-[40vh] md:h-[60vh] rounded-t-[200px] md:rounded-t-[300px] overflow-hidden"
+            <p
+                class="service-hero-subtitle font-sans text-[16px] md:text-[20px] text-base/80 leading-relaxed max-w-2xl mx-auto opacity-0 translate-y-6"
             >
-                <img
-                    src={image}
-                    alt={title}
-                    class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply"
-                />
-                <div class="absolute inset-0 bg-main/5"></div>
+                {subtitle}
+            </p>
+            <div class="service-hero-btn mt-12 opacity-0 translate-y-6">
+                <a
+                    href="#booking"
+                    class="pill-btn pill-btn--primary custom-cursor-hover"
+                >
+                    <span class="text-[14px]">✳︎</span> Reservar — {duration}
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Content & Benefits -->
-    <section class="py-24 bg-secondary">
-        <div class="max-w-4xl mx-auto px-6">
-            <h2
-                class="font-serif text-[32px] md:text-[40px] text-main mb-12 border-b border-main/20 pb-6"
-            >
-                Fundamento Clínico
-            </h2>
-            <div class="flex flex-col md:flex-row gap-12">
-                <div class="md:w-1/2">
-                    <p
-                        class="text-[16px] md:text-[18px] leading-[1.8] text-main/80"
-                    >
-                        {description}
-                    </p>
+    <!-- CONTENT & BENEFITS -->
+    <section class="py-24 md:py-32 bg-base relative z-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-16 lg:gap-24">
+                <!-- Left: Fundamento Clínico (Sticky) -->
+                <div class="w-full lg:w-5/12">
+                    <div class="sticky top-32">
+                        <h2
+                            class="font-serif text-[40px] md:text-[52px] text-main leading-[1.1] mb-8 service-reveal-text"
+                        >
+                            Fundamento <i class="text-accent-luxury">Clínico</i>
+                        </h2>
+                        <p
+                            class="text-[18px] md:text-[20px] leading-[1.8] text-main/70 service-reveal-text"
+                        >
+                            {description}
+                        </p>
+                    </div>
                 </div>
-                <div class="md:w-1/2">
+
+                <!-- Right: Objetivos / Beneficios (Glassmorphism Cards) -->
+                <div class="w-full lg:w-7/12 flex flex-col gap-6 pt-12 lg:pt-0">
                     <h3
-                        class="font-sans text-[14px] font-bold tracking-[0.2em] uppercase text-main/50 mb-6"
+                        class="font-sans text-[12px] font-bold tracking-[0.2em] uppercase text-main/40 mb-4 service-reveal-text"
                     >
                         Objetivos del Protocolo
                     </h3>
-                    <ul class="flex flex-col gap-4">
+
+                    <div class="grid gap-6">
                         {
-                            benefits.map((benefit) => (
-                                <li class="flex items-start gap-4 text-[16px] text-main/80">
-                                    <span class="text-accent-luxury mt-1">
-                                        ✳︎
+                            benefits.map((benefit, index) => (
+                                <div class="service-benefit-card p-8 md:p-10 rounded-[24px] bg-secondary border border-main/5 hover:border-accent-luxury/30 transition-colors duration-500 custom-cursor-hover flex gap-6 items-start opacity-0 translate-y-12">
+                                    <span class="text-accent-luxury font-serif text-3xl leading-none mt-1 opacity-50 block shrink-0">
+                                        0{index + 1}
                                     </span>
-                                    <span>{benefit}</span>
-                                </li>
+                                    <p class="text-[18px] md:text-[22px] leading-relaxed text-main font-medium">
+                                        {benefit}
+                                    </p>
+                                </div>
                             ))
                         }
-                    </ul>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA ALINEADO CON EL DISEÑO -->
+    <section class="py-32 bg-main text-center relative overflow-hidden">
+        <div
+            class="absolute inset-0 opacity-[0.03] pointer-events-none"
+            style="background-image: url('/grain.png'); background-repeat: repeat;"
+        >
+        </div>
+        <div class="max-w-3xl mx-auto px-6 relative z-10 service-reveal-text">
+            <h2 class="font-serif text-[40px] md:text-[60px] text-base mb-8">
+                Empieza tu proceso.
+            </h2>
+            <a
+                href="/#booking"
+                class="pill-btn pill-btn--primary custom-cursor-hover inline-flex"
+            >
+                <span>✳︎</span> Ir al Calendario
+            </a>
         </div>
     </section>
 
     <Footer />
 </MainLayout>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    document.addEventListener("astro:page-load", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Hero Animation (Entrada Inicial)
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        // El logo/cabecera es opcional, lo animamos si queremos
+        tl.to(".service-hero-category", { opacity: 1, y: 0, duration: 1 }, 0.2)
+            .to(
+                ".service-hero-title",
+                { opacity: 1, y: 0, duration: 1.2, ease: "power4.out" },
+                0.3,
+            )
+            .to(
+                ".service-hero-subtitle",
+                { opacity: 1, y: 0, duration: 1 },
+                0.5,
+            )
+            .to(".service-hero-btn", { opacity: 1, y: 0, duration: 1 }, 0.7);
+
+        // 2. Parallax de la imagen hero al bajar
+        gsap.to(".service-hero-img", {
+            yPercent: 30, // Mueve la imagen un 30% hacia abajo mientras escrolleamos
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".service-hero-img",
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+            },
+        });
+
+        // 3. Revelar textos genéricos (Fundamento, Tiempos, etc)
+        const revealTexts = document.querySelectorAll(".service-reveal-text");
+        revealTexts.forEach((text) => {
+            gsap.fromTo(
+                text,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: text,
+                        start: "top 85%",
+                    },
+                },
+            );
+        });
+
+        // 4. Stagger de las tarjetas de beneficios
+        ScrollTrigger.create({
+            trigger: ".service-benefit-card", // Dispara con el primer elemento
+            start: "top 85%",
+            animation: gsap.to(".service-benefit-card", {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.2, // Cada tarjeta sale 0.2s después de la anterior
+                ease: "power3.out",
+            }),
+        });
+    });
+</script>

@@ -1,0 +1,85 @@
+---
+// SEO.astro - Componente premium para Metadatos y Schema Markup (Rich Snippets)
+interface Props {
+    title: string;
+    description?: string;
+    image?: string;
+    type?: string;
+}
+
+const {
+    title,
+    description = "NR Balance — Especialistas en Masaje de Tejido Profundo, Descompresión Física y Psicología Clínica en Madrid. Recupera tu equilibrio físico y mental.",
+    image = "/hero-massage.jpg", // Default Open Graph image
+    type = "website",
+} = Astro.props;
+
+const canonicalURL = new URL(
+    Astro.url.pathname,
+    Astro.site || Astro.url.origin,
+);
+const socialImageURL = new URL(image, Astro.url.origin);
+
+// Schema.org para Google (Mejora el SEO Local)
+const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "HealthAndBeautyBusiness",
+    name: "NR Balance",
+    image: socialImageURL.toString(),
+    "@id": Astro.url.origin,
+    url: Astro.url.origin,
+    telephone: "+34600000000",
+    address: {
+        "@type": "PostalAddress",
+        streetAddress: "Paseo de la Castellana 8",
+        addressLocality: "Madrid",
+        postalCode: "28046",
+        addressCountry: "ES",
+    },
+    geo: {
+        "@type": "GeoCoordinates",
+        latitude: 40.42938,
+        longitude: -3.68965,
+    },
+    priceRange: "$$",
+    description: description,
+};
+---
+
+<!-- Metadatos Globales -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Meta Tags Principales -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta
+    name="keywords"
+    content="masaje profundo, psicología clínica, dolor lumbar, bruxismo, ansiedad, estrés, terapia somática, madrid, nr balance"
+/>
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={socialImageURL} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={socialImageURL} />
+
+<!-- Datos Estructurados (JSON-LD) para Rich Snippets -->
+<script
+    type="application/ld+json"
+    set:html={JSON.stringify(localBusinessSchema)}
+/>

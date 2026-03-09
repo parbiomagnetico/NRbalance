@@ -6,38 +6,31 @@ import "../styles/global.css";
 
 import SmoothScroll from "../components/SmoothScroll.astro";
 import Navigation from "../components/Navigation.astro";
+import SEO from "../components/SEO.astro";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
     title: string;
+    description?: string;
+    image?: string;
     hideNav?: boolean;
     hideFooter?: boolean;
 }
 
-const { title, hideNav = false, hideFooter = false } = Astro.props;
+const {
+    title,
+    description,
+    image,
+    hideNav = false,
+    hideFooter = false,
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="es">
     <head>
-        <meta charset="UTF-8" />
-        <meta
-            name="description"
-            content="NR Balance — Especialistas en Masaje de Tejido Profundo, Descompresión Física y Psicología Clínica en Madrid. Recupera tu equilibrio físico y mental."
-        />
-        <meta
-            name="keywords"
-            content="masaje profundo, psicología clínica, dolor lumbar, bruxismo, ansiedad, estrés, terapia somática, madrid, nr balance"
-        />
-        <meta property="og:title" content={title} />
-        <meta
-            property="og:description"
-            content="Especialistas en fisiología, biomecánica y psicología clínica. Protocolos enfocados en resultados."
-        />
-        <meta property="og:type" content="website" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="generator" content={Astro.generator} />
-        <title>{title}</title>
+        <SEO title={title} description={description} image={image} />
+        <ClientRouter />
     </head>
     <body>
         <SmoothScroll />
@@ -66,7 +59,7 @@ const { title, hideNav = false, hideFooter = false } = Astro.props;
         <script>
             import { gsap } from "gsap";
 
-            document.addEventListener("DOMContentLoaded", () => {
+            document.addEventListener("astro:page-load", () => {
                 const cursor = document.getElementById("custom-cursor");
                 if (!cursor) return;
 

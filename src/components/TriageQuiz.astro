@@ -1,0 +1,392 @@
+---
+// TriageQuiz.astro - Asistente de Bienestar Interactivo (GSAP + Vanilla JS)
+---
+
+<section id="triage" class="py-24 md:py-32 bg-main relative overflow-hidden">
+    <!-- Subtle overlay/grain -->
+    <div
+        class="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style="background-image: url('/grain.png'); background-repeat: repeat;"
+    >
+    </div>
+
+    <div
+        class="max-w-4xl mx-auto px-6 relative z-10 flex flex-col items-center"
+    >
+        <!-- Encabezado -->
+        <span
+            class="text-[12px] font-bold tracking-[0.2em] uppercase text-accent-luxury mb-4 text-center block"
+        >
+            Asistente Personal
+        </span>
+        <h2
+            class="font-serif text-[40px] md:text-[52px] leading-[1.1] tracking-tight text-base mb-12 text-center"
+        >
+            Encuentra tu tratamiento ideal.
+        </h2>
+
+        <!-- Contenedor del Quiz (Cristal/Premium) -->
+        <div
+            id="quiz-container"
+            class="w-full bg-secondary/50 backdrop-blur-md rounded-[32px] p-8 md:p-12 border border-base/5 shadow-2xl relative min-h-[400px] flex flex-col justify-center"
+        >
+            <!-- STEP 1: Físico vs Mental -->
+            <div
+                id="quiz-step-1"
+                class="quiz-step absolute inset-0 p-8 md:p-12 flex flex-col items-center justify-center opacity-100 visibility-visible"
+            >
+                <h3
+                    class="font-serif text-[28px] md:text-[36px] text-main mb-8 text-center leading-tight"
+                >
+                    ¿Qué área sientes que necesita más <i
+                        class="text-accent-luxury">atención</i
+                    > hoy?
+                </h3>
+                <div class="flex flex-col w-full max-w-lg gap-4">
+                    <button
+                        class="quiz-btn hover-golden custom-cursor-hover group flex justify-between items-center p-6 border border-main/10 rounded-2xl bg-base transition-all duration-300"
+                        data-target="step-2A"
+                    >
+                        <span
+                            class="font-sans text-[16px] md:text-[18px] text-main font-medium text-left"
+                            >Tensión física y molestias musculares</span
+                        >
+                        <span
+                            class="text-accent-luxury font-serif text-2xl group-hover:translate-x-2 transition-transform duration-300"
+                            >→</span
+                        >
+                    </button>
+                    <button
+                        class="quiz-btn hover-golden custom-cursor-hover group flex justify-between items-center p-6 border border-main/10 rounded-2xl bg-base transition-all duration-300"
+                        data-target="step-2B"
+                    >
+                        <span
+                            class="font-sans text-[16px] md:text-[18px] text-main font-medium text-left"
+                            >Fatiga mental, estrés o bloqueo emocional</span
+                        >
+                        <span
+                            class="text-accent-luxury font-serif text-2xl group-hover:translate-x-2 transition-transform duration-300"
+                            >→</span
+                        >
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2A: Físico (Opciones) -->
+            <div
+                id="quiz-step-2A"
+                class="quiz-step absolute inset-0 p-8 md:p-12 flex flex-col items-center justify-center opacity-0 pointer-events-none scale-95 flex-col"
+            >
+                <button
+                    class="quiz-back self-start text-[12px] uppercase tracking-widest text-main/50 hover:text-main mb-6 flex items-center gap-2 custom-cursor-hover transition-colors"
+                    data-target="step-1"
+                >
+                    <span>←</span> Volver
+                </button>
+                <h3
+                    class="font-serif text-[28px] md:text-[36px] text-main mb-8 text-center leading-tight"
+                >
+                    ¿Dónde se concentra la mayor <i class="text-accent-luxury"
+                        >molestia</i
+                    >?
+                </h3>
+                <div class="flex flex-col w-full max-w-lg gap-4">
+                    <button
+                        class="quiz-result-btn hover-golden custom-cursor-hover group p-6 border border-main/10 rounded-2xl bg-base text-left transition-all duration-300"
+                        data-result="Tejido Profundo"
+                        data-id="deep-tissue"
+                    >
+                        <span
+                            class="block font-sans text-[16px] md:text-[18px] text-main font-medium mb-1"
+                            >Espalda general y contracturas persistentes</span
+                        >
+                        <span
+                            class="block text-[12px] text-main/40 uppercase tracking-widest"
+                            >Alivio intenso</span
+                        >
+                    </button>
+                    <button
+                        class="quiz-result-btn hover-golden custom-cursor-hover group p-6 border border-main/10 rounded-2xl bg-base text-left transition-all duration-300"
+                        data-result="Cervico-Mandibular"
+                        data-id="cervico-mandibular"
+                    >
+                        <span
+                            class="block font-sans text-[16px] md:text-[18px] text-main font-medium mb-1"
+                            >Cuello, hombros y tensión mandibular (Bruxismo)</span
+                        >
+                        <span
+                            class="block text-[12px] text-main/40 uppercase tracking-widest"
+                            >Descompresión local</span
+                        >
+                    </button>
+                    <button
+                        class="quiz-result-btn hover-golden custom-cursor-hover group p-6 border border-main/10 rounded-2xl bg-base text-left transition-all duration-300"
+                        data-result="Crio-Recuperación"
+                        data-id="crio-recuperacion"
+                    >
+                        <span
+                            class="block font-sans text-[16px] md:text-[18px] text-main font-medium mb-1"
+                            >Fibras musculares / Recuperación deportiva</span
+                        >
+                        <span
+                            class="block text-[12px] text-main/40 uppercase tracking-widest"
+                            >Desinflamación</span
+                        >
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2B: Mental (Opciones) -->
+            <div
+                id="quiz-step-2B"
+                class="quiz-step absolute inset-0 p-8 md:p-12 flex flex-col items-center justify-center opacity-0 pointer-events-none scale-95 flex-col"
+            >
+                <button
+                    class="quiz-back self-start text-[12px] uppercase tracking-widest text-main/50 hover:text-main mb-6 flex items-center gap-2 custom-cursor-hover transition-colors"
+                    data-target="step-1"
+                >
+                    <span>←</span> Volver
+                </button>
+                <h3
+                    class="font-serif text-[28px] md:text-[36px] text-main mb-8 text-center leading-tight"
+                >
+                    ¿Cómo definirías tu estado <i class="text-accent-luxury"
+                        >actual</i
+                    >?
+                </h3>
+                <div class="flex flex-col w-full max-w-lg gap-4">
+                    <button
+                        class="quiz-result-btn hover-golden custom-cursor-hover group p-6 border border-main/10 rounded-2xl bg-base text-left transition-all duration-300"
+                        data-result="Gestión Ansiedad"
+                        data-id="ansiedad-estres"
+                    >
+                        <span
+                            class="block font-sans text-[16px] md:text-[18px] text-main font-medium mb-1"
+                            >Ciclos de ansiedad, estrés y ritmo acelerado</span
+                        >
+                        <span
+                            class="block text-[12px] text-main/40 uppercase tracking-widest"
+                            >Regulación Nerviosa</span
+                        >
+                    </button>
+                    <button
+                        class="quiz-result-btn hover-golden custom-cursor-hover group p-6 border border-main/10 rounded-2xl bg-base text-left transition-all duration-300"
+                        data-result="Recuperación de Trauma"
+                        data-id="trauma"
+                    >
+                        <span
+                            class="block font-sans text-[16px] md:text-[18px] text-main font-medium mb-1"
+                            >Bloqueo por experiencias pasadas o dolor profundo</span
+                        >
+                        <span
+                            class="block text-[12px] text-main/40 uppercase tracking-widest"
+                            >Terapia Somática</span
+                        >
+                    </button>
+                    <button
+                        class="quiz-result-btn hover-golden custom-cursor-hover group p-6 border border-main/10 rounded-2xl bg-base text-left transition-all duration-300"
+                        data-result="Estado de Ánimo"
+                        data-id="estado-animo"
+                    >
+                        <span
+                            class="block font-sans text-[16px] md:text-[18px] text-main font-medium mb-1"
+                            >Desánimo generalizado y falta de vitalidad</span
+                        >
+                        <span
+                            class="block text-[12px] text-main/40 uppercase tracking-widest"
+                            >Intervención Clínica</span
+                        >
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 3: RESULTADO -->
+            <div
+                id="quiz-step-resultado"
+                class="quiz-step absolute inset-0 p-8 md:p-12 flex flex-col items-center justify-center opacity-0 pointer-events-none scale-95 text-center"
+            >
+                <span
+                    class="text-[10px] uppercase tracking-widest text-main/50 font-bold mb-4"
+                    >Tratamiento Recomendado</span
+                >
+                <h3
+                    id="quiz-result-title"
+                    class="font-serif text-[36px] md:text-[48px] text-main mb-6 leading-none"
+                >
+                    Masaje Tejido Profundo
+                </h3>
+                <p class="font-sans text-[16px] text-main/70 max-w-md mb-8">
+                    Basado en tus respuestas, este es el abordaje clínico que
+                    mejor se adapta a tus necesidades en este momento.
+                </p>
+                <div class="flex items-center gap-4">
+                    <button
+                        id="quiz-restart"
+                        class="text-[12px] uppercase tracking-widest text-main/50 hover:text-main custom-cursor-hover transition-colors"
+                    >
+                        Rehacer Test
+                    </button>
+                    <a
+                        id="quiz-book-btn"
+                        href="#booking"
+                        class="pill-btn pill-btn--primary custom-cursor-hover px-8 cursor-pointer"
+                        data-id=""
+                    >
+                        Reservar Sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hover-golden:hover {
+        border-color: #bfa071;
+        box-shadow: 0 10px 25px rgba(191, 160, 113, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .quiz-step {
+        /* Base properties handled by tailwind and GSAP inline styles */
+        will-change: transform, opacity;
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    document.addEventListener("astro:page-load", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const container = document.getElementById("quiz-container");
+        if (!container) return; // Exit if not on page
+
+        const steps = {
+            "step-1": document.getElementById("quiz-step-1"),
+            "step-2A": document.getElementById("quiz-step-2A"),
+            "step-2B": document.getElementById("quiz-step-2B"),
+            resultado: document.getElementById("quiz-step-resultado"),
+        };
+
+        let currentStepId = "step-1";
+
+        // Animación de entrada de la sección (ScrollTrigger)
+        gsap.fromTo(
+            container,
+            { y: 50, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#triage",
+                    start: "top 80%",
+                },
+            },
+        );
+
+        // Función para cambiar de bloque con fade + scale cruzado
+        function transitionTo(nextStepId: string) {
+            const currentEl = steps[currentStepId as keyof typeof steps];
+            const nextEl = steps[nextStepId as keyof typeof steps];
+
+            if (!currentEl || !nextEl) return;
+
+            const tl = gsap.timeline();
+
+            // Salida del actual
+            tl.to(currentEl, {
+                opacity: 0,
+                scale: 0.95,
+                duration: 0.3,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    currentEl.style.pointerEvents = "none";
+                },
+            });
+
+            // Entrada del nuevo
+            tl.to(
+                nextEl,
+                {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.4,
+                    ease: "back.out(1.2)",
+                    onStart: () => {
+                        nextEl.style.pointerEvents = "auto";
+                    },
+                },
+                "-=0.1",
+            );
+
+            currentStepId = nextStepId;
+
+            // Refrescar custom cursor
+            setTimeout(() => {
+                if ((window as any).refreshCustomCursor)
+                    (window as any).refreshCustomCursor();
+            }, 400);
+        }
+
+        // Action Listeners: BOTONES DE NAVEGACIÓN
+        document.querySelectorAll(".quiz-btn, .quiz-back").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                const targetId = (e.currentTarget as HTMLElement).getAttribute(
+                    "data-target",
+                );
+                if (targetId) transitionTo(targetId);
+            });
+        });
+
+        // Action Listeners: RESULTADO FINAL
+        const resultTitle = document.getElementById("quiz-result-title");
+        const bookBtn = document.getElementById("quiz-book-btn");
+
+        document.querySelectorAll(".quiz-result-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                const target = e.currentTarget as HTMLElement;
+                const resultText = target.getAttribute("data-result");
+                const serviceId = target.getAttribute("data-id");
+
+                if (resultTitle && resultText) {
+                    resultTitle.textContent = resultText;
+                }
+
+                if (bookBtn && serviceId) {
+                    bookBtn.setAttribute("data-id", serviceId);
+                }
+
+                transitionTo("resultado");
+            });
+        });
+
+        // Action Listener: REHACER
+        document
+            .getElementById("quiz-restart")
+            ?.addEventListener("click", () => {
+                transitionTo("step-1");
+            });
+
+        // INTEGRACIÓN CON BOOKING SYSTEM (Avanzado)
+        // Al darle al botón "Reservar", pasamos el service_id para auto-seleccionar en el BookingSystem
+        bookBtn?.addEventListener("click", (e) => {
+            const serviceId = bookBtn.getAttribute("data-id");
+            if (serviceId) {
+                // Buscamos el botón en el componente BookingSystem.astro y forzamos el click
+                // usando el smooth scroll (que ya está implementado al usar href="#booking")
+                setTimeout(() => {
+                    const bookingServiceBtn = document.querySelector(
+                        `.service-option[data-id="${serviceId}"]`,
+                    );
+                    if (bookingServiceBtn) {
+                        (bookingServiceBtn as HTMLElement).click();
+                    }
+                }, 800); // Darle tiempo a Lenis a bajar la vista
+            }
+        });
+    });
+</script>

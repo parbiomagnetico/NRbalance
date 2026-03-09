@@ -69,7 +69,7 @@
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         gsap.registerPlugin(ScrollTrigger);
 
         // Image Parallax on Sticky

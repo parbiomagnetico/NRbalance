@@ -64,9 +64,10 @@ const {
                 if (!cursor) return;
 
                 // 1. Detección de Mobile/Touch temprana
-                const isTouchDevice =
-                    "ontouchstart" in window || navigator.maxTouchPoints > 0;
-                if (isTouchDevice || window.innerWidth <= 1024) {
+                // NOTA: No usamos maxTouchPoints porque oculta el cursor en portátiles Windows con pantalla táctil.
+                // Usamos la misma media query que oculta el cursor del sistema en CSS.
+                const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+                if (!hasFinePointer || window.innerWidth <= 1024) {
                     cursor.style.display = "none";
                     return;
                 }

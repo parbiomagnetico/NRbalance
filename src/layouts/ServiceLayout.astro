@@ -1,7 +1,5 @@
 ---
 import MainLayout from "./MainLayout.astro";
-import Navigation from "../components/Navigation.astro";
-import Footer from "../components/Footer.astro";
 
 interface Props {
     title: string;
@@ -22,7 +20,6 @@ const { title, category, subtitle, description, duration, benefits, image } =
     description={description}
     image={image}
 >
-    <Navigation />
 
     <!-- HERO SECTION (Awwwards Style) -->
     <section
@@ -138,9 +135,6 @@ const { title, category, subtitle, description, duration, benefits, image } =
                 <span>✳︎</span> Ir al Calendario
             </a>
         </div>
-    </section>
-
-    <Footer />
 </MainLayout>
 
 <script>

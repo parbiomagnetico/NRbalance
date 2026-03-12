@@ -28,12 +28,12 @@
         <!-- Contenedor del Quiz (Cristal/Premium) -->
         <div
             id="quiz-container"
-            class="w-full bg-secondary/50 backdrop-blur-md rounded-[32px] p-8 md:p-12 border border-base/5 shadow-2xl relative min-h-[400px] flex flex-col justify-center"
+            class="w-full bg-secondary/50 backdrop-blur-md rounded-[32px] border border-base/5 shadow-2xl relative min-h-[400px] grid items-center"
         >
             <!-- STEP 1: Físico vs Mental -->
             <div
                 id="quiz-step-1"
-                class="quiz-step absolute inset-0 p-8 md:p-12 flex flex-col items-center justify-center opacity-100 visibility-visible"
+                class="quiz-step col-start-1 row-start-1 p-8 md:p-12 flex flex-col items-center justify-center opacity-100"
             >
                 <h3
                     class="font-serif text-[28px] md:text-[36px] text-main mb-8 text-center leading-tight"
@@ -75,7 +75,7 @@
             <!-- STEP 2A: Físico (Opciones) -->
             <div
                 id="quiz-step-2A"
-                class="quiz-step absolute inset-0 p-8 md:p-12 flex flex-col items-center justify-center opacity-0 pointer-events-none scale-95 flex-col"
+                class="quiz-step col-start-1 row-start-1 p-8 md:p-12 flex flex-col items-center justify-center opacity-0 pointer-events-none scale-95"
             >
                 <button
                     class="quiz-back self-start text-[12px] uppercase tracking-widest text-main/50 hover:text-main mb-6 flex items-center gap-2 custom-cursor-hover transition-colors"
@@ -139,7 +139,7 @@
             <!-- STEP 2B: Mental (Opciones) -->
             <div
                 id="quiz-step-2B"
-                class="quiz-step absolute inset-0 p-8 md:p-12 flex flex-col items-center justify-center opacity-0 pointer-events-none scale-95 flex-col"
+                class="quiz-step col-start-1 row-start-1 p-8 md:p-12 flex flex-col items-center justify-center opacity-0 pointer-events-none scale-95"
             >
                 <button
                     class="quiz-back self-start text-[12px] uppercase tracking-widest text-main/50 hover:text-main mb-6 flex items-center gap-2 custom-cursor-hover transition-colors"
@@ -203,7 +203,7 @@
             <!-- STEP 3: RESULTADO -->
             <div
                 id="quiz-step-resultado"
-                class="quiz-step absolute inset-0 p-8 md:p-12 flex flex-col items-center justify-center opacity-0 pointer-events-none scale-95 text-center"
+                class="quiz-step col-start-1 row-start-1 p-8 md:p-12 flex flex-col items-center justify-center opacity-0 pointer-events-none scale-95 text-center"
             >
                 <span
                     class="text-[10px] uppercase tracking-widest text-main/50 font-bold mb-4"

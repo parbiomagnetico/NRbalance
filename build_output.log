@@ -1,0 +1,41 @@
+
+> nr-balance@0.0.1 build
+> astro build
+
+[2m19:53:54[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+[2m19:53:54[22m [34m[types][39m Generated [2m200ms[22m
+[2m19:53:54[22m [34m[build][39m output: [34m"static"[39m
+[2m19:53:54[22m [34m[build][39m mode: [34m"static"[39m
+[2m19:53:54[22m [34m[build][39m directory: [34mC:\Users\facto\Desktop\NRBalance\nr-balance\dist\[39m
+[2m19:53:54[22m [34m[build][39m Collecting build info...
+[2m19:53:54[22m [34m[build][39m [32m✓ Completed in 228ms.[39m
+[2m19:53:54[22m [34m[build][39m Building static entrypoints...
+[33m[1m19:53:56[22m [WARN] [vite][39m [33m"matchHostname", "matchPathname", "matchPort" and "matchProtocol" are imported from external module "@astrojs/internal-helpers/remote" but never used in "node_modules/astro/dist/assets/utils/index.js".[39m
+[2m19:53:57[22m [34m[vite][39m [32m✓ built in 2.63s[39m
+[2m19:53:57[22m [34m[vite][39m [32m✓ built in 669ms[39m
+[2m19:53:57[22m [34m[build][39m Rearranging server assets...
+
+[42m[30m generating static routes [39m[49m
+[2m19:53:57[22m   [34m├─[39m [2m/servicios/cuerpo/crio-recuperacion/index.html[22m [2m(+28ms)[22m 
+[2m19:53:58[22m   [34m├─[39m [2m/servicios/cuerpo/descompresion-cervico-mandibular/index.html[22m [2m(+8ms)[22m 
+[2m19:53:58[22m   [34m├─[39m [2m/servicios/cuerpo/descompresion-fisica/index.html[22m [2m(+8ms)[22m 
+[2m19:53:58[22m   [34m├─[39m [2m/servicios/cuerpo/masaje-tejido-profundo/index.html[22m [2m(+8ms)[22m 
+[2m19:53:58[22m   [34m├─[39m [2m/servicios/integral/metodo-nr/index.html[22m[31m[1m19:53:58[22m [ERROR][39m TypeError: Cannot read properties of undefined (reading 'map')
+    at Object.default (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/ServiceLayout_DupDWLx3.mjs:12:43)
+    at new AstroComponentInstance (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/prerender_COst7HOw.mjs:3880:30)
+    at createAstroComponentInstance (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/prerender_COst7HOw.mjs:3932:20)
+    at renderAstroComponent (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/prerender_COst7HOw.mjs:4541:20)
+    at renderComponent (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/prerender_COst7HOw.mjs:4562:12)
+    at file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/ServiceLayout_DupDWLx3.mjs:9:27
+    at AstroComponentInstance.ServiceLayout [as factory] (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/MainLayout_Du68Knot.mjs:19:12)
+    at AstroComponentInstance.init (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/prerender_COst7HOw.mjs:3894:29)
+    at AstroComponentInstance.render (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/prerender_COst7HOw.mjs:3904:30)
+    at Object.render (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/prerender_COst7HOw.mjs:4544:23)
+[31m[1m19:53:58[22m [ERROR] [build][39m Caught error rendering /servicios/integral/metodo-nr: TypeError: Cannot read properties of undefined (reading 'map')
+Cannot read properties of undefined (reading 'map')
+  [1mStack trace:[22m
+[2m    at Object.default (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/ServiceLayout_DupDWLx3.mjs:12:43)
+    at createAstroComponentInstance (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/prerender_COst7HOw.mjs:3932:20)
+    at renderComponent (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/prerender_COst7HOw.mjs:4562:12)
+    at AstroComponentInstance.ServiceLayout [as factory] (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/MainLayout_Du68Knot.mjs:19:12)
+    at AstroComponentInstance.render (file:///C:/Users/facto/Desktop/NRBalance/nr-balance/dist/.prerender/chunks/prerender_COst7HOw.mjs:3904:30)[22m

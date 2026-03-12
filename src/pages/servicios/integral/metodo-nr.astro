@@ -1,0 +1,113 @@
+---
+import ServiceLayout from "../../../layouts/ServiceLayout.astro";
+
+// Specific properties for the Integral Program landing page
+const metadata = {
+    title: "El Método NR Balance: Tratamiento Integral",
+    category: "Tratamiento Integral 360º",
+    subtitle: "Sanar desde la acción. El Método NR.",
+    description: "Transformación anatómica y emocional 360º. Supera el acoso, la depresión y el descontento físico mediante una combinación de psicología clínica, terapia manual y acondicionamiento (AFDA0210).",
+    duration: "Suscripción Mensual",
+    image: "/treatment_integral.png",
+    ctaLink: "https://wa.me/34600000000?text=Hola%20Natalia,%20necesito%20un%20cambio.%20Me%20interesa%20la%20valoración%20para%20el%20Método%20NR.",
+    ctaText: "Solicitar Acceso por WhatsApp"
+};
+---
+
+<ServiceLayout {...metadata}>
+    <!-- CLINICAL FUNDAMENTALS / TEXT / ASYMMETRIC GRID -->
+    <div
+        class="w-full flex flex-col lg:flex-row items-stretch border-b border-main/10 bg-secondary"
+    >
+        <!-- Lado Izquierdo Fijo (Desktop) -->
+        <div
+            class="lg:w-[45%] lg:sticky lg:top-0 h-auto lg:h-[100vh] flex flex-col justify-center p-8 md:p-16 lg:p-24 border-r border-main/10"
+        >
+            <span
+                class="font-sans text-[12px] font-bold tracking-[0.2em] uppercase text-accent-luxury mb-4 block"
+            >
+                Fundamento Clínico
+            </span>
+            <h2
+                class="font-serif text-[40px] md:text-[60px] leading-[1] tracking-tighter text-main mb-8"
+            >
+                Sanar desde la <span class="italic text-base/80"
+                    >Acción.</span
+                >
+            </h2>
+
+            <!-- Autoridad & Experiencia Personal -->
+            <div class="p-6 bg-main rounded-[24px] border border-accent-luxury/20">
+                <span class="block text-accent-luxury font-mono text-[10px] tracking-widest uppercase mb-2">Autoridad Clínica y Personal</span>
+                <p class="font-sans text-[14px] text-base/80 leading-relaxed">
+                    Este método no es pura teoría; nace de la experiencia de la fundadora, superando en primera persona la depresión, obesidad y el acoso escolar. Avalado por <strong class="text-base font-bold">Psicología (URV), Masaje (IMPE0110)</strong> y <strong class="text-base font-bold">Acondicionamiento Físico (AFDA0210)</strong>.
+                </p>
+            </div>
+        </div>
+
+        <!-- Lado Derecho Scrollable (Texto) -->
+        <div class="lg:w-[55%] p-8 md:p-16 lg:p-24">
+            <div
+                class="prose prose-lg md:prose-xl prose-p:font-sans prose-p:text-main/70 prose-p:leading-[1.8] prose-p:mb-8 prose-headings:font-serif prose-headings:text-main max-w-none"
+            >
+                <p class="text-[20px] md:text-[24px] leading-[1.6] text-main font-medium border-l border-accent-luxury pl-6">
+                    Existe un perfil de persona que necesita algo más que sentarse a hablar en un sillón, o acostarse pasivamente en una camilla. Hablamos de adolescentes y adultos cuyas heridas emocionales —como el acoso escolar (bullying), la baja autoestima paralizante, o la depresión severa ligada a la obesidad— han modificado su forma de habitar el mundo.
+                </p>
+
+                <p>
+                    Cuando el trauma es físico y emocional, la postura se encoge, la respiración se acorta y la inseguridad domina el lenguaje corporal. Para estas personas, asistir a un gimnasio convencional es una experiencia terrorífica llena de juicios, y la psicología tradicional, a veces, se queda corta sin acompañamiento físico.
+                </p>
+                <p>
+                    <strong>El Método NR Balance</strong> nace exactamente para abordar este vacío. Es un abordaje inmersivo y seguro, donde el proceso clínico se divide en tres fases integradas en una misma sesión.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BENEFICIOS / RESULTADOS (Stagger Glass Cards) -->
+    <div class="w-full px-6 md:px-12 py-24 lg:py-32 bg-main relative overflow-hidden">
+        
+        <!-- Golden Grain Overlay -->
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style="background-image: url('/grain.png'); background-repeat: repeat;"></div>
+        
+        <div class="max-w-[1200px] mx-auto relative z-10">
+            <div class="text-center mb-16 md:mb-24">
+                <span class="text-[12px] font-bold tracking-[0.2em] uppercase text-accent-luxury mb-4 block">Fases del Programa</span>
+                <h3 class="font-serif text-[40px] md:text-[60px] leading-[1] tracking-tighter text-base">
+                    La recuperación de tu <span class="text-accent-luxury italic">Poder.</span>
+                </h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Beneficio 1 -->
+                <div class="benefit-card bg-base/5 border border-base/10 backdrop-blur-md p-8 md:p-12 rounded-[32px] hover:bg-base/10 transition-colors duration-500 group">
+                    <div class="text-accent-luxury font-serif text-[40px] mb-6 opacity-80 group-hover:scale-110 transition-transform origin-left">01</div>
+                    <h4 class="font-sans text-[20px] text-base font-medium mb-4">Desbloqueo Mental</h4>
+                    <p class="font-sans text-[15px] text-base/60 leading-relaxed">
+                        A través de intervenciones psicológicas seguras, desactivamos la respuesta de huida/ansiedad generada por el trauma o el acoso, construyendo defensas cognitivas fuertes y una mentalidad de crecimiento.
+                    </p>
+                </div>
+                <!-- Beneficio 2 -->
+                <div class="benefit-card bg-base/5 border border-base/10 backdrop-blur-md p-8 md:p-12 rounded-[32px] hover:bg-base/10 transition-colors duration-500 group">
+                    <div class="text-accent-luxury font-serif text-[40px] mb-6 opacity-80 group-hover:scale-110 transition-transform origin-left">02</div>
+                    <h4 class="font-sans text-[20px] text-base font-medium mb-4">Reconexión Somática</h4>
+                    <p class="font-sans text-[15px] text-base/60 leading-relaxed">
+                        Terapia manual intensiva y descargas miofasciales. Enseñamos al sistema nervioso que el cuerpo vuelve a ser un refugio seguro, eliminando las corazas musculares y los dolores crónicos psicosomáticos.
+                    </p>
+                </div>
+                <!-- Beneficio 3 -->
+                <div class="benefit-card bg-base/5 border border-base/10 backdrop-blur-md p-8 md:p-12 rounded-[32px] hover:bg-base/10 transition-colors duration-500 group">
+                    <div class="text-accent-luxury font-serif text-[40px] mb-6 opacity-80 group-hover:scale-110 transition-transform origin-left">03</div>
+                    <h4 class="font-sans text-[20px] text-base font-medium mb-4">Acondicionamiento (AFDA)</h4>
+                    <p class="font-sans text-[15px] text-base/60 leading-relaxed">
+                        Entrenamiento guiado, privado y de fuerza progresiva basado en biomecánica. Pierde peso, gana resiliencia física y, sobre todo, recupera una postura erguida que refleje una autoestima inquebrantable.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-20 flex justify-center">
+                 <p class="text-base/40 italic font-serif text-[24px] text-center max-w-2xl">"No eres esclavo de tu pasado ni de tu físico. Eres el arquitecto absoluto de tu recuperación."</p>
+            </div>
+        </div>
+    </div>
+</ServiceLayout>

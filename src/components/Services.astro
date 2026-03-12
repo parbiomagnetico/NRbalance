@@ -53,6 +53,15 @@ const manualServices = [
         href: "/servicios/cuerpo/descompresion-cervico-mandibular",
     },
 ];
+
+const integralServices = [
+    {
+        title: "Programa Integral: Método NR",
+        tag: "Psicología + Terapia Manual + AFDA0210",
+        desc: "Transformación anatómica y emocional 360º. Un abordaje clínico inmersivo paso a paso para personas bloqueadas por traumas como el acoso escolar (bullying), depresión severa o descontento físico paralizante. Recupera el orgullo vital.",
+        href: "/servicios/integral/metodo-nr",
+    }
+];
 ---
 
 <section id="services" class="bg-base relative w-full pb-24 md:pb-32">
@@ -230,6 +239,85 @@ const manualServices = [
                             </span>
                             <svg
                                 class="w-5 h-5 text-main rotate-45 group-hover:rotate-0 transition-transform duration-300"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                                />
+                            </svg>
+                        </div>
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+
+    <!-- CATEGORY 3: PROGRAMA INTEGRAL -->
+    <div class="w-full relative flex flex-col lg:flex-row border-t border-main/10">
+        <!-- Lado Izquierdo Fijo (Desktop) -->
+        <div
+            class="lg:w-1/2 lg:sticky lg:top-0 h-auto lg:h-[100vh] flex flex-col justify-center p-8 md:p-16 lg:p-24 bg-main text-base overflow-hidden relative"
+        >
+            <div
+                class="absolute inset-0 z-0 opacity-40 mix-blend-multiply grayscale"
+            >
+                <img
+                    src="/treatment_integral.png"
+                    alt="Programa Integral"
+                    class="w-full h-full object-cover"
+                />
+            </div>
+
+            <div class="relative z-10">
+                <span
+                    class="font-sans text-[12px] md:text-[14px] font-bold tracking-[0.3em] uppercase text-accent-luxury mb-4 block"
+                >
+                    III. Tratamiento 360º
+                </span>
+                <h3
+                    class="font-serif text-[50px] md:text-[80px] leading-[0.9] tracking-tighter text-base"
+                >
+                    El <span class="italic text-accent-luxury">Método.</span>
+                </h3>
+                <p class="mt-8 text-base/70 max-w-sm text-[16px] leading-[1.6]">
+                    Nuestra joya clínica. La fusión total de psicología clínica, fisiología manual y acondicionamiento activo guiado (AFDA0210) para un cambio radical.
+                </p>
+            </div>
+        </div>
+
+        <!-- Lado Derecho Scrollable (Tarjetas) -->
+        <div
+            class="lg:w-1/2 p-6 md:p-12 lg:p-24 bg-base flex flex-col gap-6 md:gap-12 custom-cursor-hover"
+        >
+            {
+                integralServices.map((srv, index) => (
+                    <a
+                        href={srv.href}
+                        class="service-card sticky-stack w-full bg-main border border-accent-luxury/20 p-8 md:p-12 rounded-[32px] shadow-[0_10px_40px_rgba(191,160,113,0.1)] flex flex-col gap-6 transition-all duration-500 group cursor-pointer"
+                        style={`top: ${100 + index * 20}px; z-index: ${10 + index}; display: block;`}
+                    >
+                        <div class="flex flex-col gap-2">
+                            <span class="text-accent-luxury text-[10px] md:text-[12px] font-mono tracking-widest uppercase mb-2">
+                                {srv.tag}
+                            </span>
+                            <h4 class="font-serif text-[28px] md:text-[40px] leading-[1.1] tracking-tight text-base group-hover:text-accent-luxury transition-colors duration-500">
+                                {srv.title}
+                            </h4>
+                        </div>
+                        <p class="text-[15px] md:text-[16px] text-base/80 leading-[1.6]">
+                            {srv.desc}
+                        </p>
+                        <div class="mt-4 pt-6 border-t border-accent-luxury/20 flex justify-between items-center opacity-70 group-hover:opacity-100 transition-opacity">
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-accent-luxury">
+                                Descubrir el Método
+                            </span>
+                            <svg
+                                class="w-5 h-5 text-accent-luxury rotate-45 group-hover:rotate-0 transition-transform duration-300"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"

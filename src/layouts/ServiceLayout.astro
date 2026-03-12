@@ -7,12 +7,23 @@ interface Props {
     subtitle: string;
     description: string;
     duration: string;
-    benefits: string[];
+    benefits?: string[];
     image: string;
+    ctaLink?: string;
+    ctaText?: string;
 }
 
-const { title, category, subtitle, description, duration, benefits, image } =
-    Astro.props;
+const { 
+    title, 
+    category, 
+    subtitle, 
+    description, 
+    duration, 
+    benefits = [], 
+    image,
+    ctaLink = "/#booking",
+    ctaText = "Ir al Calendario"
+} = Astro.props;
 ---
 
 <MainLayout
@@ -70,8 +81,14 @@ const { title, category, subtitle, description, duration, benefits, image } =
         </div>
     </section>
 
-    <!-- CONTENT & BENEFITS -->
-    <section class="py-24 md:py-32 bg-base relative z-20">
+        </div>
+    </section>
+
+    {
+        Astro.slots.has('default') ? (
+            <slot />
+        ) : (
+            <section class="py-24 md:py-32 bg-base relative z-20">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col lg:flex-row gap-16 lg:gap-24">
                 <!-- Left: Fundamento Clínico (Sticky) -->
@@ -115,7 +132,10 @@ const { title, category, subtitle, description, duration, benefits, image } =
                 </div>
             </div>
         </div>
+        </div>
     </section>
+    )
+    }
 
     <!-- FINAL CTA ALINEADO CON EL DISEÑO -->
     <section class="py-32 bg-main text-center relative overflow-hidden">
@@ -129,10 +149,10 @@ const { title, category, subtitle, description, duration, benefits, image } =
                 Empieza tu proceso.
             </h2>
             <a
-                href="/#booking"
+                href={ctaLink}
                 class="pill-btn pill-btn--primary custom-cursor-hover inline-flex"
             >
-                <span>✳︎</span> Ir al Calendario
+                <span>✳︎</span> {ctaText}
             </a>
         </div>
 </MainLayout>
